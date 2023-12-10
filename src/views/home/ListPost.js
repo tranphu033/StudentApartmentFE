@@ -23,21 +23,39 @@ export default function ListPost() {
     console.log("listpost::", res);
     setListPost(res);
   };
-  const handleBack = () => {
-    if (curPage > 1) {
-      setCurPage(curPage - 1);
+  // const handleBack = () => {
+  //   if (curPage > 1) {
+  //     setCurPage(curPage - 1);
+  //   }
+  // };
+  // const handleNext = () => {
+  //   if (curPage < pageNum) {
+  //     setCurPage(curPage + 1);
+  //   }
+  // };
+  const handleRedirectPage = (type, index) => {
+    if (type === "BACK") {
+      if (curPage > 1) {
+        setCurPage(curPage - 1);
+      }
+    } else if (type === "NEXT") {
+      if (curPage < pageNum) {
+        setCurPage(curPage + 1);
+      }
+    } else {
+      setCurPage(index + 1);
     }
+    //scroll to top
+    const offset = 180
+    document.body.scrollTop = offset; // For Safari
+    document.documentElement.scrollTop = offset; // For Chrome, Firefox, IE and Opera
   };
-  const handleNext = () => {
-    if (curPage < pageNum) {
-      setCurPage(curPage + 1);
-    }
-  };
+
   useEffect(() => {
     setCurPageStartIndex((curPage - 1) * perPage);
   }, [curPage]);
   useEffect(() => {
-    setCurPage(1)
+    setCurPage(1);
     getListPost();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortType]);
@@ -56,7 +74,11 @@ export default function ListPost() {
             }}
           >
             {sortTypes?.map((item, index) => (
-              <option value={item.value} key={index} style={{fontSize: '18px'}}>
+              <option
+                value={item.value}
+                key={index}
+                style={{ fontSize: "18px" }}
+              >
                 {item.name}
               </option>
             ))}
@@ -129,7 +151,7 @@ export default function ListPost() {
       <Stack direction="horizontal" className="justify-content-end">
         <Button
           variant=""
-          onClick={handleBack}
+          onClick={() => handleRedirectPage("BACK", 0)}
           className="me-2 border border-2 fw-bold"
         >
           {"<"}
@@ -142,7 +164,7 @@ export default function ListPost() {
               "me-2 border border-2 fw-bold",
               curPage === index + 1 && "border-primary"
             )}
-            onClick={() => setCurPage(index + 1)}
+            onClick={() => handleRedirectPage("", index)}
           >
             {index + 1}
           </Button>
@@ -150,7 +172,7 @@ export default function ListPost() {
         <Button
           variant=""
           className="border border-2 fw-bold"
-          onClick={handleNext}
+          onClick={() => handleRedirectPage("NEXT", 0)}
         >
           {">"}
         </Button>
