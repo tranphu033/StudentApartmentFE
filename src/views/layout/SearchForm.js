@@ -20,7 +20,7 @@ export default function SearchForm() {
   return (
     <Stack
       direction="horizontal"
-      className="ps-4 mt-2 mx-auto flex-wrap"
+      className="ps-4 mt-2 mb-3 mx-auto flex-wrap"
       gap="4"
     >
       <FilterSelector icon={<IApartAll />} curText={"Tất cả"}>
