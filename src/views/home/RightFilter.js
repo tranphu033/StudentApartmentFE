@@ -1,11 +1,11 @@
 import { areaFilter, priceFilter } from "../../constants";
 
-export default function LeftFilter() {
+export default function RightFilter() {
   return (
     <div>
       <div
         className="border-main rounded"
-        style={{ marginTop: "75px", zIndex: 1 }}
+        style={{ marginTop: "79px", zIndex: 1 }}
       >
         <div className="mt-1 ms-3 mb-1 fw-bold" style={{ fontSize: "18px" }}>
           Lọc theo khoảng giá
@@ -13,8 +13,7 @@ export default function LeftFilter() {
         {priceFilter?.map((item, index) => (
           <div
             key={index}
-            className="text-start ps-3 py-1"
-            style={{ cursor: "pointer" }}
+            className="text-start ps-3 py-1 cursor-pointer"            
           >
             {item.min === 0 && <span>Dưới {item.max}</span>}
             {item.max === 0 && <span>Trên {item.min}</span>}
@@ -34,7 +33,7 @@ export default function LeftFilter() {
         {areaFilter?.map((item, index) => (
           <div
             key={index}
-            className="text-start ps-3 py-1 pointer"            
+            className="text-start ps-3 py-1 cursor-pointer"            
           >
             {item.min === 0 && <span>Dưới {item.max}</span>}
             {item.max === 0 && <span>Trên {item.min}</span>}

@@ -2,7 +2,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./pageStyle.css";
 import ListPost from "./ListPost";
-import LeftFilter from "./LeftFilter";
+import RightFilter from "./RightFilter";
 
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
           <ListPost />
         </Col>
         <Col className="md-down-collapse p-2" md={3}>
-          <LeftFilter />
+          <RightFilter />
         </Col>
       </Row>
     </>
