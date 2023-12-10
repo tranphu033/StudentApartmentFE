@@ -1,0 +1,20 @@
+.text-main {
+    color: #4FAE5A;
+}
+.text-main-bolder {
+    color: #1D952B;
+}
+.bg-main {
+    background-color: #4FAE5A;
+}
+.bg-main-bolder {
+    background-color: #1D952B;
+}
+.border-main {
+    border-style: solid;
+    border-width: 1.5px;
+    border-color:#4FAE5A
+}
+.cursor-pointer {
+    cursor: pointer;
+}
