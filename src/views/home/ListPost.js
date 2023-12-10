@@ -37,6 +37,7 @@ export default function ListPost() {
     setCurPageStartIndex((curPage - 1) * perPage);
   }, [curPage]);
   useEffect(() => {
+    setCurPage(1)
     getListPost();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortType]);
