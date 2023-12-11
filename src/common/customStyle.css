@@ -18,3 +18,10 @@
 .cursor-pointer {
     cursor: pointer;
 }
+.item-hover1:hover {
+    background-color: #4FAE5A;
+    color: white;
+}
+.text-sm {
+    font-size: 13px;
+}
