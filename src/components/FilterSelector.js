@@ -2,23 +2,26 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
 import clsx from "clsx";
 
-export default function FilterSelector({ children, icon, curText }) {
+export default function FilterSelector({ children, icon, current }) {
   const [show, setShow] = useState(false);
 
   return (
-    <div className="position-relative" onMouseLeave={() => setShow(false)}>
+    <div
+      className="position-relative"
+      onMouseLeave={() => setShow(false)}
+      onClick={() => setShow(true)}
+    >
       <div
-        className="d-inline-flex border-main rounded bg-white py-2 px-2"
-        style={{ minWidth: "200px" }}
+        className="d-inline-flex border-main rounded bg-white py-2 px-2 cursor-pointer"
+        style={{ minWidth: "240px" }}
       >
         <div className="d-inline-flex align-items-center gap-2">
           {icon || ""}
-          {curText}
+          {current}
         </div>
         <button
           type="button"
           className="border-0 rounded bg-light ms-auto text-main "
-          onClick={() => setShow(true)}
         >
           <IoIosArrowDown />
         </button>

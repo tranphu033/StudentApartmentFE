@@ -1,20 +1,40 @@
 .text-main {
-    color: #4FAE5A;
+  color: #4fae5a;
 }
 .text-main-bolder {
-    color: #1D952B;
+  color: #1d952b;
 }
 .bg-main {
-    background-color: #4FAE5A;
+  background-color: #4fae5a;
 }
 .bg-main-bolder {
-    background-color: #1D952B;
+  background-color: #1d952b;
 }
 .border-main {
-    border-style: solid;
-    border-width: 1.5px;
-    border-color:#4FAE5A
+  border-style: solid;
+  border-width: 1.5px;
+  border-color: #4fae5a;
 }
 .cursor-pointer {
-    cursor: pointer;
+  cursor: pointer;
+}
+.item-hover1:hover {
+  background-color: #4fae5a;
+  color: white;
+}
+.item-hover2:hover {
+  background-color: #9d9696;
+  color: white;
+}
+.text-sm {
+  font-size: 13px;
+}
+.text-xs {
+  font-size: 11.5px;
+}
+.text-hover-main:hover {
+  color: #4fae5a;
+}
+.bg-disabled {
+  background-color: #dcdbdf !important;
 }

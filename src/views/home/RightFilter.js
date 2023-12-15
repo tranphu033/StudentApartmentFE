@@ -13,7 +13,7 @@ export default function RightFilter() {
         {priceFilter?.map((item, index) => (
           <div
             key={index}
-            className="text-start ps-3 py-1 cursor-pointer"            
+            className="text-start ps-3 py-1 cursor-pointer item-hover1"            
           >
             {item.min === 0 && <span>Dưới {item.max}</span>}
             {item.max === 0 && <span>Trên {item.min}</span>}
@@ -33,7 +33,7 @@ export default function RightFilter() {
         {areaFilter?.map((item, index) => (
           <div
             key={index}
-            className="text-start ps-3 py-1 cursor-pointer"            
+            className="text-start ps-3 py-1 cursor-pointer item-hover1"            
           >
             {item.min === 0 && <span>Dưới {item.max}</span>}
             {item.max === 0 && <span>Trên {item.min}</span>}
