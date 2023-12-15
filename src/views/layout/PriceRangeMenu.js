@@ -6,7 +6,7 @@ export default function PriceRangeMenu({setPriceRange}) {
         setPriceRange({ min: item.min, max: item.max });
         console.log("price range::", item);
       };
-
+    
   return (
     <div id="priceFilter">
       <div

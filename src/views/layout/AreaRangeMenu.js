@@ -30,7 +30,8 @@ export default function AreaRangeMenu({ setAreaRange }) {
               {item.min} - {item.max}
             </span>
           ) : null}
-          {" triệu"}
+          {" m"}
+          {<sup>2</sup>}
         </div>
       ))}
     </div>

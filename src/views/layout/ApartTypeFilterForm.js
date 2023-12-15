@@ -1,20 +1,18 @@
 import Form from "react-bootstrap/Form";
 import { apartFilter } from "../../constants";
-import { IApart1, IApart2, IApart3, IApartAll } from "../../common/icons";
+import { IApart1, IApart2, IApart3 } from "../../common/icons";
 import { GrPowerReset } from "react-icons/gr";
 
-export default function ApartTypeFilterForm({apartTypes, setApartTypes}) {
-  const handleSelect = (item) => {
-    console.log('name::', item.name);
-    let types_cp = [...apartTypes];
-    let index = apartTypes.indexOf(item);
+export default function ApartTypeFilterForm({ apartTypes, setApartTypes }) {
+  const handleSelect = (type) => {
+    let types = [...apartTypes];
+    let index = apartTypes.indexOf(type);
     if (index < 0) {
-      types_cp.push(item);
+      types.push(type);
     } else {
-      types_cp.splice(index, 1);
-    }
-    console.log('type list::', types_cp);
-    setApartTypes(types_cp);
+      types.splice(index, 1);
+    }    
+    setApartTypes(types);
   };
 
   return (
@@ -22,24 +20,24 @@ export default function ApartTypeFilterForm({apartTypes, setApartTypes}) {
       {apartFilter?.map((item, index) => (
         <div className="px-3 py-1" key={index}>
           <div className="d-inline-flex gap-1">
-            {item.value === 0 && <IApartAll />}
-            {item.value === 1 && <IApart1 />}
-            {item.value === 2 && <IApart2 />}
-            {item.value === 3 && <IApart3 />}
+            {item.value === 0 && <IApart1 />}
+            {item.value === 1 && <IApart2 />}
+            {item.value === 2 && <IApart3 />}
             <span>{item.name}</span>
           </div>
           <Form.Check
             type="checkbox"
             reverse
             aria-label={item.name}
-            className="float-end"            
+            className="float-end"
             onClick={() => handleSelect(item)}
+            onChange={() => null}
           />
         </div>
       ))}
       <button
         type="reset"
-        className="border-0 w-100 bg-white text-start ps-3 py-1"
+        className="border-0 w-100 bg-white text-start ps-3 py-1 text-hover-main"
         onClick={() => setApartTypes([])}
       >
         <GrPowerReset /> Đặt lại
