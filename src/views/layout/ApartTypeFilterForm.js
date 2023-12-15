@@ -37,7 +37,7 @@ export default function ApartTypeFilterForm({ apartTypes, setApartTypes }) {
       ))}
       <button
         type="reset"
-        className="border-0 w-100 bg-white text-start ps-3 py-1 text-hover-main"
+        className="border-0 bg-white text-start ps-3 py-1 text-hover-main"
         onClick={() => setApartTypes([])}
       >
         <GrPowerReset /> Đặt lại

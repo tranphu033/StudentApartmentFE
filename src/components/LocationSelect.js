@@ -23,6 +23,9 @@ export default function LocationSelect({
     <div
       className="position-relative"
       onMouseLeave={() => setIsShowDrop(false)}
+      onClick={() => {
+        if (!disabled) setIsShowDrop(true);
+      }}
     >
       <div
         className={clsx(
@@ -30,9 +33,6 @@ export default function LocationSelect({
           disabled && "bg-disabled",
           className
         )}
-        onClick={() => {
-          if (!disabled) setIsShowDrop(true);
-        }}
         style={{ height: "50px" }}
       >
         <div className="d-flex align-items-center">

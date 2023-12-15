@@ -7,7 +7,7 @@ export default function FilterSelector({ children, icon, current }) {
 
   return (
     <div
-      className="position-relative"
+      className="position-relative select-filter"
       onMouseLeave={() => setShow(false)}
       onClick={() => setShow(true)}
     >
