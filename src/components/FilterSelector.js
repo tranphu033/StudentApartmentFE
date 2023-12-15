@@ -17,7 +17,7 @@ export default function FilterSelector({ children, icon, current }) {
       >
         <div className="d-inline-flex align-items-center gap-2">
           {icon || ""}
-          {current}
+          <span className="fs-14 fw-500">{current}</span>
         </div>
         <button
           type="button"
@@ -34,7 +34,7 @@ export default function FilterSelector({ children, icon, current }) {
         )}
         style={{ minWidth: "200px", zIndex: 2 }}
       >
-        <div>{children}</div>
+        <div className="fs-14 fw-500">{children}</div>
       </div>
     </div>
   );

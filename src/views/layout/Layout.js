@@ -13,7 +13,8 @@ export default function Layout({ children }) {
       <div className="fixed-top">
         <Stack direction="horizontal" className="border py-2 pe-3 bg-white">
           <Button variant="" className={btnStyle + " ms-auto"}>
-            <AiFillHeart className="text-danger" /> Yêu thích
+            <AiFillHeart className="text-danger" />
+            <span className="fs-14 fw-500"> Yêu thích</span>
           </Button>
           <Button variant="" className={btnStyle}>
             <svg
@@ -31,7 +32,7 @@ export default function Layout({ children }) {
                 strokeLinejoin="round"
               />
             </svg>
-            Đăng nhập
+            <span className="fs-14 fw-500">Đăng nhập</span>
           </Button>
           <Button variant="" className={btnStyle}>
             <svg
@@ -49,18 +50,20 @@ export default function Layout({ children }) {
                 strokeLinejoin="round"
               />
             </svg>
-            Đăng ký
+            <span className="fs-14 fw-500">Đăng ký</span>
           </Button>
           <Button
             variant=""
             style={{ backgroundColor: "#E44A5D", color: "white" }}
             className={btnStyle}
           >
-            <IoMdAdd /> Đăng tin mới
+            <span className="fs-14 fw-500">
+              <IoMdAdd /> Đăng tin mới
+            </span>
           </Button>
         </Stack>
         <Navbar expand="sm" className="bg-dark" variant="dark">
-          <Nav className="mx-auto">
+          <Nav className="mx-auto fs-14 fw-700">
             <Nav.Link href="/" className="text-white">
               Trang chủ
             </Nav.Link>
@@ -78,12 +81,12 @@ export default function Layout({ children }) {
       </div>
       <div
         className="d-flex flex-column align-items-center py-3"
-        style={{ backgroundColor: "#EAFEF1", marginTop: '112px' }}
+        style={{ backgroundColor: "#EAFEF1", marginTop: "112px" }}
       >
-        <h2 className="text-main-bolder fw-bold">
+        <div className="text-main-bolder fw-bold fs-30 fw-700">
           Tìm phòng trọ nhanh, phòng trọ mới nhất trên toàn quốc
-        </h2>
-        <div>
+        </div>
+        <div className="fw-400">
           Hiệu quả với 100.000+ tin đăng và 2.500.000 lượt xem mỗi tháng
         </div>
         <SearchForm />

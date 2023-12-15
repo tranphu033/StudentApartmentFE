@@ -5,15 +5,15 @@ export default function RightFilter() {
     <div>
       <div
         className="border-main rounded"
-        style={{ marginTop: "79px", zIndex: 1 }}
+        style={{ marginTop: "72px", zIndex: 1 }}
       >
-        <div className="mt-1 ms-3 mb-1 fw-bold" style={{ fontSize: "18px" }}>
+        <div className="mt-1 ms-3 mb-1 fw-700">
           Lọc theo khoảng giá
         </div>
         {priceFilter?.map((item, index) => (
           <div
             key={index}
-            className="text-start ps-3 py-1 cursor-pointer item-hover1"            
+            className="text-start ps-3 py-2 cursor-pointer item-hover1 fw-600"            
           >
             {item.min === 0 && <span>Dưới {item.max}</span>}
             {item.max === 0 && <span>Trên {item.min}</span>}
@@ -27,13 +27,13 @@ export default function RightFilter() {
         ))}
       </div>
       <div className="border-main rounded mt-4">
-        <div className="mt-1 ms-3 mb-1 fw-bold" style={{ fontSize: "18px" }}>
+        <div className="mt-1 ms-3 mb-1 fw-700">
           Lọc theo diện tích
         </div>
         {areaFilter?.map((item, index) => (
           <div
             key={index}
-            className="text-start ps-3 py-1 cursor-pointer item-hover1"            
+            className="text-start ps-3 py-2 cursor-pointer item-hover1 fw-600"            
           >
             {item.min === 0 && <span>Dưới {item.max}</span>}
             {item.max === 0 && <span>Trên {item.min}</span>}

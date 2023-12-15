@@ -12,6 +12,7 @@ import AreaRangeMenu from "./AreaRangeMenu";
 import { apartFilter, locationList } from "../../constants";
 import Badge from "react-bootstrap/Badge";
 import LocationSelect from "../../components/LocationSelect";
+import axios from "axios";
 
 export default function SearchForm() {
   const [priceRange, setPriceRange] = useState({ min: -1, max: -1 });
@@ -85,7 +86,7 @@ export default function SearchForm() {
         </div>
       );
   };
-  const handleSearch = () => {
+  const handleSearch = async () => {
     console.log("price range::", priceRange);
     console.log("area range::", areaRange);
     console.log(
@@ -95,6 +96,9 @@ export default function SearchForm() {
       })
     );
     console.log("location::", street + ", " + ward + ", " + district);
+    const res = await axios.get(`http://127.0.0.1:8000/api/getParams?price-min=${priceRange.min}`)
+    const ret = res.data
+    console.log('price min::', ret);
   };
 
   useEffect(() => {
@@ -188,12 +192,12 @@ export default function SearchForm() {
       </FilterSelector>
       <button
         type="button"
-        className="px-3 mb-1 border-0 rounded bg-main text-white"
+        className="px-3 mb-1 border-0 rounded bg-main text-white fs-14 fw-600"
         style={{ height: "44px" }}
         onClick={handleSearch}
       >
         Tìm kiếm
-        <CiSearch className="ms-2 fs-5" />
+        <CiSearch className="ms-1 fs-4" />
       </button>
     </Stack>
   );

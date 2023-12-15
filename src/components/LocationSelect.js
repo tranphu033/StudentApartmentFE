@@ -32,7 +32,7 @@ export default function LocationSelect({
           "border rounded d-flex justify-content-between w-100 ps-2 cursor-pointer",
           disabled && "bg-disabled",
           className
-        )}
+        )}        
         style={{ height: "50px" }}
       >
         <div className="d-flex align-items-center">
@@ -42,7 +42,7 @@ export default function LocationSelect({
             <span>
               <span className="text-secondary text-xs">{defaultText}</span>
               <br />
-              <small className="align-top">{item}</small>
+              <div className="align-top">{item}</div>
             </span>
           )}
         </div>
@@ -62,9 +62,7 @@ export default function LocationSelect({
           )}
         </button>
       </div>
-      {disabled && message ? (
-        <div className="text-sm ms-1 text-secondary">{message}</div>
-      ) : null}
+      {disabled && <div className="text-sm ms-1 text-secondary">{message}</div>}
       {isShowDrop && (
         <div className="position-absolute start-100 top-0">
           <div

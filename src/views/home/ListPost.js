@@ -46,7 +46,7 @@ export default function ListPost() {
       setCurPage(index + 1);
     }
     //scroll to top
-    const offset = 180
+    const offset = 180;
     document.body.scrollTop = offset; // For Safari
     document.documentElement.scrollTop = offset; // For Chrome, Firefox, IE and Opera
   };
@@ -62,23 +62,22 @@ export default function ListPost() {
 
   return (
     <>
-      <div className="text-main">Hiện có {listPost.length} kết quả</div>
+      <div className="text-main fs-14 fw-500">
+        Hiện có {listPost.length} kết quả
+      </div>
       <Form className="mb-3">
         <Form.Group>
-          <Form.Label>Sắp xếp:</Form.Label>
+          <Form.Label className="fs-14 fw-500">Sắp xếp:</Form.Label>
           <Form.Select
-            size="md"
+            size="sm"
             className="w-25 d-inline-block ms-3 mt-2 border-success text-secondary"
             onChange={(e) => {
               setSortType(e.target.value);
             }}
+            style={{ fontSize: "14px", fontWeight: "600px" }}
           >
             {sortTypes?.map((item, index) => (
-              <option
-                value={item.value}
-                key={index}
-                style={{ fontSize: "18px" }}
-              >
+              <option value={item.value} key={index} className="fs-14 fw-600">
                 {item.name}
               </option>
             ))}
@@ -115,14 +114,11 @@ export default function ListPost() {
                 </div>
                 <img src={images[3].url} alt={images[3].url} width="34%" />
               </div>
-              <div
-                className="fw-bold mt-2"
-                style={{ fontSize: "20px", cursor: "pointer" }}
-              >
+              <div className="fw-bold mt-2 cursor-pointer fs-18 fw-700">
                 {item.title}
               </div>
               <div className="mt-2">
-                <div className="d-inline-block fw-bold text-danger">
+                <div className="d-inline-block fw-bold text-danger fw-700">
                   {item.price / 1000000} triệu/tháng
                   <LuDot className="mx-1" />
                   {item.land_area} m<sup>2</sup>
@@ -132,19 +128,18 @@ export default function ListPost() {
                   <LuDot className="mx-1" />
                   {item.bedroom_num} <IBadroom />
                   <LuDot className="mx-1" />
-                  {item.district}
-                  {", Hà Nội"}
+                  <span className="fs-14">
+                    {item.district}
+                    {", Hà Nội"}
+                  </span>
                 </div>
-                <AiOutlineHeart
-                  className="text-danger ms-4"
-                  style={{ cursor: "pointer" }}
-                />
+                <AiOutlineHeart className="text-danger ms-4 cursor-pointer" />
               </div>
-              <div className="mt-2 fw-bold">Địa chỉ: {item.address}</div>
-              <small>
+              <div className="mt-2 fw-600">Địa chỉ: {item.address}</div>
+              <div className="text-sm fw-500">
                 Đã đăng vào {dayjs(item.created_at).format("HH:ss")} ngày{" "}
                 {dayjs(item.created_at).format("DD/MM/YYYY")}
-              </small>
+              </div>
             </div>
           );
         })}

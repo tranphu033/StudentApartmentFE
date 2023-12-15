@@ -5,6 +5,7 @@ import ListPost from "./ListPost";
 import RightFilter from "./RightFilter";
 
 export default function Home() {
+  
   return (
     <>
       <Row className="mt-3 pb-5" style={{ marginLeft: "10%", marginRight: "20%" }}>
