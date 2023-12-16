@@ -75,6 +75,7 @@ export default function PostDetail() {
     }, [])
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         try {
             getPostDetail(postId);
             getHotNews();
