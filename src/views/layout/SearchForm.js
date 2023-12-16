@@ -12,9 +12,8 @@ import AreaRangeMenu from "./AreaRangeMenu";
 import { apartFilter, locationList } from "../../constants";
 import Badge from "react-bootstrap/Badge";
 import LocationSelect from "../../components/LocationSelect";
-import axios from "axios";
 
-export default function SearchForm() {
+export default function SearchForm({ getListPost, setSortType }) {
   const [priceRange, setPriceRange] = useState({ min: -1, max: -1 });
   const [areaRange, setAreaRange] = useState({ min: -1, max: -1 });
   const [apartTypes, setApartTypes] = useState([]);
@@ -87,6 +86,7 @@ export default function SearchForm() {
       );
   };
   const handleSearch = async () => {
+    setSortType(0)
     console.log("price range::", priceRange);
     console.log("area range::", areaRange);
     console.log(
@@ -96,9 +96,34 @@ export default function SearchForm() {
       })
     );
     console.log("location::", street + ", " + ward + ", " + district);
-    const res = await axios.get(`http://127.0.0.1:8000/api/getParams?price-min=${priceRange.min}`)
-    const ret = res.data
-    console.log('price min::', ret);
+    
+    let filterCondition = {};
+    if (apartTypes.length > 0) {
+      filterCondition.type = apartTypes.map((item) => {
+        return item.value;
+      });
+    }
+    if (
+      (priceRange.min >= 0 && priceRange.max > 0) ||
+      (priceRange.min > 0 && priceRange.max >= 0)
+    ) {
+      filterCondition.priceMin = priceRange.min;
+      filterCondition.priceMax = priceRange.max;
+    }
+    if (
+      (areaRange.min >= 0 && areaRange.max > 0) ||
+      (areaRange.min > 0 && areaRange.max >= 0)
+    ) {
+      filterCondition.areaMin = areaRange.min;
+      filterCondition.areaMax = areaRange.max;
+    }
+    if(district) filterCondition.district = district
+    if(ward) filterCondition.ward = ward
+    if(street) filterCondition.street = street
+    
+    localStorage.setItem("filterCondition", JSON.stringify(filterCondition));
+    //send request to server
+    await getListPost(filterCondition);
   };
 
   useEffect(() => {

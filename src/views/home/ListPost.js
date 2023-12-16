@@ -10,29 +10,27 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import postApi from "../../apis/postApi";
 
-export default function ListPost() {
-  const [listPost, setListPost] = useState([]);
+export default function ListPost({
+  listPost,
+  setListPost,
+  sortType,
+  setSortType,
+}) {
   const perPage = 3;
   const pageNum = Math.ceil(listPost.length / perPage);
   const [curPage, setCurPage] = useState(1);
   const [curPageStartIndex, setCurPageStartIndex] = useState(0);
-  const [sortType, setSortType] = useState(0);
+  const filterCondition = JSON.parse(localStorage.getItem("filterCondition"));
 
   const getListPost = async () => {
-    const res = await postApi.getList({ sortType: sortType });
+    const res = await postApi.getList({
+      ...filterCondition,
+      sortType: sortType,
+    });
     console.log("listpost::", res);
     setListPost(res);
   };
-  // const handleBack = () => {
-  //   if (curPage > 1) {
-  //     setCurPage(curPage - 1);
-  //   }
-  // };
-  // const handleNext = () => {
-  //   if (curPage < pageNum) {
-  //     setCurPage(curPage + 1);
-  //   }
-  // };
+
   const handleRedirectPage = (type, index) => {
     if (type === "BACK") {
       if (curPage > 1) {
@@ -55,6 +53,7 @@ export default function ListPost() {
     setCurPageStartIndex((curPage - 1) * perPage);
   }, [curPage]);
   useEffect(() => {
+    console.log("filter condition::", filterCondition);
     setCurPage(1);
     getListPost();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,7 +76,12 @@ export default function ListPost() {
             style={{ fontSize: "14px", fontWeight: "600px" }}
           >
             {sortTypes?.map((item, index) => (
-              <option value={item.value} key={index} className="fs-14 fw-600">
+              <option
+                value={item.value}
+                key={index}
+                className="fs-14 fw-600"
+                selected={item.value === sortType}
+              >
                 {item.name}
               </option>
             ))}
