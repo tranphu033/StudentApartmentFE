@@ -10,29 +10,27 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import postApi from "../../apis/postApi";
 
-export default function ListPost() {
-  const [listPost, setListPost] = useState([]);
+export default function ListPost({
+  listPost,
+  setListPost,
+  sortType,
+  setSortType,
+  curPage,
+  setCurPage
+}) {
   const perPage = 3;
   const pageNum = Math.ceil(listPost.length / perPage);
-  const [curPage, setCurPage] = useState(1);
   const [curPageStartIndex, setCurPageStartIndex] = useState(0);
-  const [sortType, setSortType] = useState(0);
 
   const getListPost = async () => {
-    const res = await postApi.getList({ sortType: sortType });
+    const filterCondition = JSON.parse(localStorage.getItem("filterCondition"));
+    let params = { sortType: sortType };
+    if (filterCondition) Object.assign(params, filterCondition);
+    const res = await postApi.getList(params);
     console.log("listpost::", res);
     setListPost(res);
   };
-  // const handleBack = () => {
-  //   if (curPage > 1) {
-  //     setCurPage(curPage - 1);
-  //   }
-  // };
-  // const handleNext = () => {
-  //   if (curPage < pageNum) {
-  //     setCurPage(curPage + 1);
-  //   }
-  // };
+
   const handleRedirectPage = (type, index) => {
     if (type === "BACK") {
       if (curPage > 1) {
@@ -59,6 +57,9 @@ export default function ListPost() {
     getListPost();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortType]);
+  useEffect(() => {
+    localStorage.removeItem("filterCondition");
+  }, []);
 
   return (
     <>
@@ -77,7 +78,12 @@ export default function ListPost() {
             style={{ fontSize: "14px", fontWeight: "600px" }}
           >
             {sortTypes?.map((item, index) => (
-              <option value={item.value} key={index} className="fs-14 fw-600">
+              <option
+                value={item.value}
+                key={index}
+                className="fs-14 fw-600"
+                selected={item.value === sortType}
+              >
                 {item.name}
               </option>
             ))}
