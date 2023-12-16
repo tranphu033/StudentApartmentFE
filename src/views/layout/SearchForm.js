@@ -12,8 +12,13 @@ import AreaRangeMenu from "./AreaRangeMenu";
 import { apartFilter, locationList } from "../../constants";
 import Badge from "react-bootstrap/Badge";
 import LocationSelect from "../../components/LocationSelect";
+import { useNavigate } from "react-router-dom";
 
-export default function SearchForm({ getListPost, setSortType, setCurPage }) {
+export default function SearchForm({
+  setSortType,
+  setCurPage,
+  setFilterCondition,
+}) {
   const [priceRange, setPriceRange] = useState({ min: -1, max: -1 });
   const [areaRange, setAreaRange] = useState({ min: -1, max: -1 });
   const [apartTypes, setApartTypes] = useState([]);
@@ -22,6 +27,7 @@ export default function SearchForm({ getListPost, setSortType, setCurPage }) {
   const [curWardList, setCurWardList] = useState([]);
   const [street, setStreet] = useState("");
   const [curStreetList, setCurStreetList] = useState([]);
+  const navigate = useNavigate();
 
   const CurrentPriceRange = () => {
     if (priceRange.min < 0) return <span>Chọn giá</span>;
@@ -88,15 +94,6 @@ export default function SearchForm({ getListPost, setSortType, setCurPage }) {
   const handleSearch = async () => {
     setSortType(0);
     setCurPage(1);
-    // console.log("price range::", priceRange);
-    // console.log("area range::", areaRange);
-    // console.log(
-    //   "apartment types::",
-    //   apartTypes.map((item) => {
-    //     return item.value;
-    //   })
-    // );
-    // console.log("location::", street + ", " + ward + ", " + district);
 
     let filterCondition = {};
     if (apartTypes.length > 0) {
@@ -111,18 +108,15 @@ export default function SearchForm({ getListPost, setSortType, setCurPage }) {
         filterCondition.priceMax = priceRange.max * 1000000;
     }
     if (areaRange.min > 0 || areaRange.max > 0) {
-      if (areaRange.min > 0)
-        filterCondition.areaMin = areaRange.min;
-      if (areaRange.max > 0)
-        filterCondition.areaMax = areaRange.max;
+      if (areaRange.min > 0) filterCondition.areaMin = areaRange.min;
+      if (areaRange.max > 0) filterCondition.areaMax = areaRange.max;
     }
     if (district) filterCondition.district = district;
     if (ward) filterCondition.ward = ward;
     if (street) filterCondition.street = street;
-    console.log("filter condition::", filterCondition);
-    localStorage.setItem("filterCondition", JSON.stringify(filterCondition));
-    //send request to server
-    await getListPost(filterCondition);
+    // console.log("filter condition::", filterCondition);
+    setFilterCondition(filterCondition);
+    if (window.location.pathname !== "/") navigate("/");
   };
 
   useEffect(() => {

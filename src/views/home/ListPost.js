@@ -9,29 +9,18 @@ import { AiOutlineHeart } from "react-icons/ai";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
-import postApi from "../../apis/postApi";
 
 export default function ListPost({
   listPost,
-  setListPost,
   sortType,
   setSortType,
   curPage,
-  setCurPage
+  setCurPage,
 }) {
   let navigate = useNavigate();
   const perPage = 3;
   const pageNum = Math.ceil(listPost.length / perPage);
   const [curPageStartIndex, setCurPageStartIndex] = useState(0);
-
-  const getListPost = async () => {
-    const filterCondition = JSON.parse(localStorage.getItem("filterCondition"));
-    let params = { sortType: sortType };
-    if (filterCondition) Object.assign(params, filterCondition);
-    const res = await postApi.getList(params);
-    console.log("listpost::", res);
-    setListPost(res);
-  };
 
   const handleRedirectPage = (type, index) => {
     if (type === "BACK") {
@@ -56,12 +45,8 @@ export default function ListPost({
   }, [curPage]);
   useEffect(() => {
     setCurPage(1);
-    getListPost();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortType]);
-  useEffect(() => {
-    localStorage.removeItem("filterCondition");
-  }, []);
 
   return (
     <>
@@ -92,13 +77,20 @@ export default function ListPost({
           </Form.Select>
         </Form.Group>
       </Form>
-      {listPost.length > 0 &&
+      {listPost.length > 0 ? (
         Array.from({ length: perPage }, (_, index) => {
           if (curPageStartIndex + index > listPost.length - 1) return null;
           let item = listPost[curPageStartIndex + index];
           let images = item.images;
           return (
-            <div className="border-main rounded p-2 mb-4 shadow" key={index} style={{ cursor: 'pointer' }} onClick={() => { navigate('/post/' + item.id) }}>
+            <div
+              className="border-main rounded p-2 mb-4 shadow"
+              key={index}
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                navigate("/post/" + item.id);
+              }}
+            >
               <div className="d-flex" style={{ maxHeight: "300px" }}>
                 <img
                   className="pe-1"
@@ -150,36 +142,41 @@ export default function ListPost({
               </div>
             </div>
           );
-        })}
-      <Stack direction="horizontal" className="justify-content-end">
-        <Button
-          variant=""
-          onClick={() => handleRedirectPage("BACK", 0)}
-          className="me-2 border border-2 fw-bold"
-        >
-          {"<"}
-        </Button>
-        {Array.from({ length: pageNum }, (_, index) => (
+        })
+      ) : (
+        <h4>Không có bài đăng nào phù hợp!</h4>
+      )}
+      {listPost.length > 0 && (
+        <Stack direction="horizontal" className="justify-content-end">
           <Button
             variant=""
-            key={index}
-            className={clsx(
-              "me-2 border border-2 fw-bold",
-              curPage === index + 1 && "border-primary"
-            )}
-            onClick={() => handleRedirectPage("", index)}
+            onClick={() => handleRedirectPage("BACK", 0)}
+            className="me-2 border border-2 fw-bold"
           >
-            {index + 1}
+            {"<"}
           </Button>
-        ))}
-        <Button
-          variant=""
-          className="border border-2 fw-bold"
-          onClick={() => handleRedirectPage("NEXT", 0)}
-        >
-          {">"}
-        </Button>
-      </Stack>
+          {Array.from({ length: pageNum }, (_, index) => (
+            <Button
+              variant=""
+              key={index}
+              className={clsx(
+                "me-2 border border-2 fw-bold",
+                curPage === index + 1 && "border-primary"
+              )}
+              onClick={() => handleRedirectPage("", index)}
+            >
+              {index + 1}
+            </Button>
+          ))}
+          <Button
+            variant=""
+            className="border border-2 fw-bold"
+            onClick={() => handleRedirectPage("NEXT", 0)}
+          >
+            {">"}
+          </Button>
+        </Stack>
+      )}
     </>
   );
 }

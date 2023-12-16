@@ -6,7 +6,6 @@ import RightFilter from "./RightFilter";
 
 export default function Home({
   listPost,
-  setListPost,
   sortType,
   setSortType,
   curPage,
@@ -21,7 +20,6 @@ export default function Home({
         <Col className="" md={9}>
           <ListPost
             listPost={listPost}
-            setListPost={setListPost}
             sortType={sortType}
             setSortType={setSortType}
             curPage={curPage}
