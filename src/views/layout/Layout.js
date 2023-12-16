@@ -1,18 +1,20 @@
 import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import { IoMdAdd } from "react-icons/io";
 import { AiFillHeart } from "react-icons/ai";
 import SearchForm from "./SearchForm";
+import { Link } from "react-router-dom";
+import clsx from "clsx";
 
 export default function Layout({
   children,
   setSortType,
   setCurPage,
-  setFilterCondition
+  setFilterCondition,
+  curNavOption,
 }) {
   const btnStyle = "d-flex align-items-center gap-2";
+
   return (
     <>
       <div className="fixed-top">
@@ -67,26 +69,35 @@ export default function Layout({
             </span>
           </Button>
         </Stack>
-        <Navbar expand="sm" className="bg-dark" variant="dark">
-          <Nav className="mx-auto fs-14 fw-700">
-            <Nav.Link href="/" className="text-white">
+        <div
+          className="fs-14 fw-700 d-flex justify-content-center border bg-dark text-white flex-wrap"
+          style={{ minHeight: "42px" }}
+        >
+          <Link
+            to="/"
+            className={clsx(
+              "px-3 nav-link d-flex align-items-center",
+              curNavOption === 1 && "bg-white"
+            )}
+          >
+            <span className={clsx(curNavOption === 1 && "text-main")}>
               Trang chủ
-            </Nav.Link>
-            <Nav.Link href="/k1" className="text-white">
-              Phòng trọ
-            </Nav.Link>
-            <Nav.Link href="/k2" className="text-white">
-              Nhà nguyên căn
-            </Nav.Link>
-            <Nav.Link href="#link" className="text-white">
-              Chung cư
-            </Nav.Link>
-          </Nav>
-        </Navbar>
+            </span>
+          </Link>
+          <Link to="#" className="px-3 nav-link d-flex align-items-center">
+            Phòng trọ
+          </Link>
+          <Link to="#" className="px-3 nav-link d-flex align-items-center">
+            Nhà nguyên căn
+          </Link>
+          <Link to="#" className="px-3 nav-link d-flex align-items-center">
+            Chung cư
+          </Link>
+        </div>
       </div>
       <div
         className="d-flex flex-column align-items-center py-3"
-        style={{ backgroundColor: "#EAFEF1", marginTop: "112px" }}
+        style={{ backgroundColor: "#EAFEF1", marginTop: "97px" }}
       >
         <div className="text-main-bolder fw-bold fs-30 fw-700">
           Tìm phòng trọ nhanh, phòng trọ mới nhất trên toàn quốc

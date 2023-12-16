@@ -4,6 +4,9 @@
 .text-main-bolder {
   color: #1d952b;
 }
+.text-white-css {
+  color: white;
+}
 .bg-main {
   background-color: #4fae5a;
 }

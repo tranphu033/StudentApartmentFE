@@ -10,6 +10,7 @@ const AppRoutes = () => {
   const [sortType, setSortType] = useState(0);
   const [curPage, setCurPage] = useState(1);
   const [filterCondition, setFilterCondition] = useState({});
+  const [curNavOption, setCurNavOption] = useState(0);
 
   const getListPost = async () => {
     const res = await postApi.getList({
@@ -34,6 +35,7 @@ const AppRoutes = () => {
               setSortType={setSortType}
               setCurPage={setCurPage}
               setFilterCondition={setFilterCondition}
+              curNavOption={curNavOption}
             >
               <Routes>
                 <Route
@@ -45,10 +47,14 @@ const AppRoutes = () => {
                       setSortType={setSortType}
                       curPage={curPage}
                       setCurPage={setCurPage}
+                      setCurNavOption={setCurNavOption}
                     />
                   }
                 />
-                <Route path="/post/:postId" element={<PostDetail />} />
+                <Route
+                  path="/post/:postId"
+                  element={<PostDetail setCurNavOption={setCurNavOption} />}
+                />
               </Routes>
             </Layout>
           }

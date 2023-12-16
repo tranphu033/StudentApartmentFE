@@ -16,6 +16,7 @@ export default function ListPost({
   setSortType,
   curPage,
   setCurPage,
+  setCurNavOption,
 }) {
   let navigate = useNavigate();
   const perPage = 3;
@@ -47,6 +48,10 @@ export default function ListPost({
     setCurPage(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortType]);
+  useEffect(() => {
+    setCurNavOption(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

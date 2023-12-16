@@ -53,7 +53,7 @@ const slideProperties = {
     ),
 };
 
-export default function PostDetail() {
+export default function PostDetail({setCurNavOption}) {
     let navigate = useNavigate();
     const { postId } = useParams();
     const [postDetail, setPostDetail] = useState([]);
@@ -78,6 +78,10 @@ export default function PostDetail() {
         getPostDetail(postId);
         getHotNews();
     }, [postId, getHotNews, getPostDetail]);
+    useEffect(()=>{
+        setCurNavOption(0)        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     return (
         (postDetail ? (
             <div className="main-box">

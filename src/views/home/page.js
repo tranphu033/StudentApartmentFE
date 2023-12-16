@@ -10,6 +10,7 @@ export default function Home({
   setSortType,
   curPage,
   setCurPage,
+  setCurNavOption,
 }) {
   return (
     <>
@@ -24,6 +25,7 @@ export default function Home({
             setSortType={setSortType}
             curPage={curPage}
             setCurPage={setCurPage}
+            setCurNavOption={setCurNavOption}
           />
         </Col>
         <Col className="md-down-collapse p-2" md={3}>
