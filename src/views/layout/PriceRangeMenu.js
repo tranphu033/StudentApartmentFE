@@ -4,7 +4,6 @@ import { priceFilter } from "../../constants";
 export default function PriceRangeMenu({setPriceRange}) {
     const handleChangePriceRange = (item) => {
         setPriceRange({ min: item.min, max: item.max });
-        console.log("price range::", item);
       };
     
   return (
