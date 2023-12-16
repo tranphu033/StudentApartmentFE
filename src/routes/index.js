@@ -8,6 +8,7 @@ import postApi from "../apis/postApi";
 const AppRoutes = () => {
   const [listPost, setListPost] = useState([]);
   const [sortType, setSortType] = useState(0);
+  const [curPage, setCurPage] = useState(1);
 
   const getListPost = async (params) => {
     const res = await postApi.getList(params);
@@ -21,7 +22,11 @@ const AppRoutes = () => {
         <Route
           path="*"
           element={
-            <Layout getListPost={getListPost} setSortType={setSortType}>
+            <Layout
+              getListPost={getListPost}
+              setSortType={setSortType}
+              setCurPage={setCurPage}
+            >
               <Routes>
                 <Route
                   path="/"
@@ -31,6 +36,8 @@ const AppRoutes = () => {
                       setListPost={setListPost}
                       sortType={sortType}
                       setSortType={setSortType}
+                      curPage={curPage}
+                      setCurPage={setCurPage}
                     />
                   }
                 />

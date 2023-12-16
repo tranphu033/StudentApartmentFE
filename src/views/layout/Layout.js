@@ -6,7 +6,12 @@ import { IoMdAdd } from "react-icons/io";
 import { AiFillHeart } from "react-icons/ai";
 import SearchForm from "./SearchForm";
 
-export default function Layout({ children, getListPost, setSortType }) {
+export default function Layout({
+  children,
+  getListPost,
+  setSortType,
+  setCurPage,
+}) {
   const btnStyle = "d-flex align-items-center gap-2";
   return (
     <>
@@ -89,7 +94,11 @@ export default function Layout({ children, getListPost, setSortType }) {
         <div className="fw-400">
           Hiệu quả với 100.000+ tin đăng và 2.500.000 lượt xem mỗi tháng
         </div>
-        <SearchForm getListPost={getListPost} setSortType={setSortType} />
+        <SearchForm
+          getListPost={getListPost}
+          setSortType={setSortType}
+          setCurPage={setCurPage}
+        />
       </div>
       {children}
     </>

@@ -4,7 +4,14 @@ import "./pageStyle.css";
 import ListPost from "./ListPost";
 import RightFilter from "./RightFilter";
 
-export default function Home({ listPost, setListPost, sortType, setSortType }) {
+export default function Home({
+  listPost,
+  setListPost,
+  sortType,
+  setSortType,
+  curPage,
+  setCurPage,
+}) {
   return (
     <>
       <Row
@@ -17,6 +24,8 @@ export default function Home({ listPost, setListPost, sortType, setSortType }) {
             setListPost={setListPost}
             sortType={sortType}
             setSortType={setSortType}
+            curPage={curPage}
+            setCurPage={setCurPage}
           />
         </Col>
         <Col className="md-down-collapse p-2" md={3}>

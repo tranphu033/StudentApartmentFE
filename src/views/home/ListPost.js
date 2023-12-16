@@ -15,18 +15,18 @@ export default function ListPost({
   setListPost,
   sortType,
   setSortType,
+  curPage,
+  setCurPage
 }) {
   const perPage = 3;
   const pageNum = Math.ceil(listPost.length / perPage);
-  const [curPage, setCurPage] = useState(1);
   const [curPageStartIndex, setCurPageStartIndex] = useState(0);
-  const filterCondition = JSON.parse(localStorage.getItem("filterCondition"));
 
   const getListPost = async () => {
-    const res = await postApi.getList({
-      ...filterCondition,
-      sortType: sortType,
-    });
+    const filterCondition = JSON.parse(localStorage.getItem("filterCondition"));
+    let params = { sortType: sortType };
+    if (filterCondition) Object.assign(params, filterCondition);
+    const res = await postApi.getList(params);
     console.log("listpost::", res);
     setListPost(res);
   };
@@ -53,11 +53,13 @@ export default function ListPost({
     setCurPageStartIndex((curPage - 1) * perPage);
   }, [curPage]);
   useEffect(() => {
-    console.log("filter condition::", filterCondition);
     setCurPage(1);
     getListPost();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortType]);
+  useEffect(() => {
+    localStorage.removeItem("filterCondition");
+  }, []);
 
   return (
     <>

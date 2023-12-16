@@ -13,7 +13,7 @@ import { apartFilter, locationList } from "../../constants";
 import Badge from "react-bootstrap/Badge";
 import LocationSelect from "../../components/LocationSelect";
 
-export default function SearchForm({ getListPost, setSortType }) {
+export default function SearchForm({ getListPost, setSortType, setCurPage }) {
   const [priceRange, setPriceRange] = useState({ min: -1, max: -1 });
   const [areaRange, setAreaRange] = useState({ min: -1, max: -1 });
   const [apartTypes, setApartTypes] = useState([]);
@@ -87,6 +87,7 @@ export default function SearchForm({ getListPost, setSortType }) {
   };
   const handleSearch = async () => {
     setSortType(0)
+    setCurPage(1)
     console.log("price range::", priceRange);
     console.log("area range::", areaRange);
     console.log(
