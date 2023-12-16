@@ -75,8 +75,12 @@ export default function PostDetail() {
     }, [])
 
     useEffect(() => {
-        getPostDetail(postId);
-        getHotNews();
+        try {
+            getPostDetail(postId);
+            getHotNews();
+        } catch (error) {
+            console.error(error);
+        }
     }, [postId, getHotNews, getPostDetail]);
     return (
         (postDetail ? (
