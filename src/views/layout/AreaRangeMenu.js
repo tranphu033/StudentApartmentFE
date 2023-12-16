@@ -4,7 +4,6 @@ import { areaFilter } from "../../constants";
 export default function AreaRangeMenu({ setAreaRange }) {
   const handleChangeAreaRange = (item) => {
     setAreaRange({ min: item.min, max: item.max });
-    console.log("area range::", item);
   };
   return (
     <div id="areaFilter">

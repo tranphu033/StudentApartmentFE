@@ -86,42 +86,40 @@ export default function SearchForm({ getListPost, setSortType, setCurPage }) {
       );
   };
   const handleSearch = async () => {
-    setSortType(0)
-    setCurPage(1)
-    console.log("price range::", priceRange);
-    console.log("area range::", areaRange);
-    console.log(
-      "apartment types::",
-      apartTypes.map((item) => {
-        return item.value;
-      })
-    );
-    console.log("location::", street + ", " + ward + ", " + district);
-    
+    setSortType(0);
+    setCurPage(1);
+    // console.log("price range::", priceRange);
+    // console.log("area range::", areaRange);
+    // console.log(
+    //   "apartment types::",
+    //   apartTypes.map((item) => {
+    //     return item.value;
+    //   })
+    // );
+    // console.log("location::", street + ", " + ward + ", " + district);
+
     let filterCondition = {};
     if (apartTypes.length > 0) {
       filterCondition.type = apartTypes.map((item) => {
         return item.value;
       });
     }
-    if (
-      (priceRange.min >= 0 && priceRange.max > 0) ||
-      (priceRange.min > 0 && priceRange.max >= 0)
-    ) {
-      filterCondition.priceMin = priceRange.min;
-      filterCondition.priceMax = priceRange.max;
+    if (priceRange.min > 0 || priceRange.max > 0) {
+      if (priceRange.min > 0)
+        filterCondition.priceMin = priceRange.min * 1000000;
+      if (priceRange.max > 0)
+        filterCondition.priceMax = priceRange.max * 1000000;
     }
-    if (
-      (areaRange.min >= 0 && areaRange.max > 0) ||
-      (areaRange.min > 0 && areaRange.max >= 0)
-    ) {
-      filterCondition.areaMin = areaRange.min;
-      filterCondition.areaMax = areaRange.max;
+    if (areaRange.min > 0 || areaRange.max > 0) {
+      if (areaRange.min > 0)
+        filterCondition.areaMin = areaRange.min;
+      if (areaRange.max > 0)
+        filterCondition.areaMax = areaRange.max;
     }
-    if(district) filterCondition.district = district
-    if(ward) filterCondition.ward = ward
-    if(street) filterCondition.street = street
-    
+    if (district) filterCondition.district = district;
+    if (ward) filterCondition.ward = ward;
+    if (street) filterCondition.street = street;
+    console.log("filter condition::", filterCondition);
     localStorage.setItem("filterCondition", JSON.stringify(filterCondition));
     //send request to server
     await getListPost(filterCondition);
