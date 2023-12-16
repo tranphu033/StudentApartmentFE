@@ -141,6 +141,13 @@ export default function SearchForm({
     setCurStreetList(streetList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ward]);
+  useEffect(() => {
+    setWard("");
+    setStreet("");
+  }, [district]);
+  useEffect(() => {
+    setStreet("");
+  }, [ward]);
 
   return (
     <Stack

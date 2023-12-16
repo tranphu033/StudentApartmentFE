@@ -14,7 +14,7 @@ export default function LocationSelect({
 }) {
   const [isShowDrop, setIsShowDrop] = useState(false);
 
-  const handleSelect = (value) => {
+  const handleSelect = (value) => {    
     setItem(value);
     setIsShowDrop(false);
   };
