@@ -29,13 +29,11 @@
     width: 355px;
 }
 
-.each-slide-effect>div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
+.each-slide-effect {
     height: 350px;
 }
+
+
 
 .each-slide-effect span {
     padding: 20px;
@@ -134,11 +132,13 @@
     align-items: flex-start;
     column-gap: 10px;
     margin-top: 20px;
+    cursor: pointer;
 }
 
 .hotnews-price {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 
 }
 
