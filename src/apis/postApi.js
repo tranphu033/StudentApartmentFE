@@ -17,8 +17,8 @@ const postApi = {
   getHotNews: () => {
     return customAxios.get(`${prefix}/featured`);
   },
-  getSimilarPosts: (price, area, type) => {
-    return customAxios.get(`${prefix}/similar?price=${price}&area=${area}&type=${type}`);
+  getSimilarPosts: (district, ward, price) => {
+    return customAxios.get(`${prefix}/similar?district=${district}&ward=${ward}&price=${price}`);
   }
 };
 

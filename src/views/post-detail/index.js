@@ -62,10 +62,10 @@ export default function PostDetail() {
     const getPostDetail = useCallback(async (id) => {
         const res = await postApi.getPostDetail(id)
         setPostDetail(res);
-        getSimilarPosts(res.price, res.land_area, res.type)
+        getSimilarPosts(res.district, res.ward, res.price)
     }, [])
-    const getSimilarPosts = async (price, area, type) => {
-        const res2 = await postApi.getSimilarPosts(price, area, type)
+    const getSimilarPosts = async (district, ward, price) => {
+        const res2 = await postApi.getSimilarPosts(district, ward, price)
         setSimilarNews(res2)
     }
     const getHotNews = useCallback(async () => {
