@@ -1,4 +1,5 @@
 import { IBadroom, IBedroom } from "../../common/icons";
+import { useNavigate } from "react-router-dom";
 import { sortTypes } from "../../constants";
 import Form from "react-bootstrap/Form";
 import Stack from "react-bootstrap/Stack";
@@ -18,6 +19,7 @@ export default function ListPost({
   curPage,
   setCurPage
 }) {
+  let navigate = useNavigate();
   const perPage = 3;
   const pageNum = Math.ceil(listPost.length / perPage);
   const [curPageStartIndex, setCurPageStartIndex] = useState(0);
@@ -96,7 +98,7 @@ export default function ListPost({
           let item = listPost[curPageStartIndex + index];
           let images = item.images;
           return (
-            <div className="border-main rounded p-2 mb-4 shadow" key={index}>
+            <div className="border-main rounded p-2 mb-4 shadow" key={index} style={{ cursor: 'pointer' }} onClick={() => { navigate('/post/' + item.id) }}>
               <div className="d-flex" style={{ maxHeight: "300px" }}>
                 <img
                   className="pe-1"
