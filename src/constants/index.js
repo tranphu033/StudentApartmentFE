@@ -50,8 +50,51 @@ export const locationList = [
       { name: "Minh Khai", street: ["Minh Khai", '8/3'] },
       { name: "Vĩnh Tuy", street: ["Minh Khai", "Lạc Trung"] },
       { name: "Trương Định", street: ["Đại La"] },
-      { name: "Bạch Mai", street: ["Đê Tô Hoàng"] },
-      // {name: '', street: ['']},
+      { name: "Bạch Mai", street: ["Đê Tô Hoàng"] },      
+    ],
+  },
+  {
+    district: "Đống Đa",
+    ward: [
+      { name: "Phương Liên", street: [] },
+      { name: "Phương Mai", street: [] },
+      { name: "Khương Thượng", street: [] },
+      { name: "Ngã Tư Sở", street: [] },
+      { name: "Ô Chợ Dừa", street: [] },
+      { name: "Quang Trung", street: [] },                  
+    ],
+  },
+  {
+    district: "Hoàng Mai",
+    ward: [
+      { name: "Định Công", street: [] },
+      { name: "Đại Kim", street: [] },
+      { name: "Giáp Bát", street: [] },
+      { name: "Hoàng Liệt", street: [] },
+      { name: "Hoàng Văn Thụ", street: [] },  
+      { name: "Yên Sở", street: [] },                
+    ],
+  },
+  {
+    district: "Hoàn Kiếm",
+    ward: [
+      { name: "Lý Thái Tổ", street: [] },
+      { name: "Phan Chu Trinh", street: [] },
+      { name: "Phúc Tân", street: [] },
+      { name: "Trần Hưng Đạo", street: [] },
+      { name: "Tràng Tiền", street: [] },
+      { name: "Chương Dương Độ", street: [] },                  
+    ],
+  },
+  {
+    district: "Long Biên",
+    ward: [
+      { name: "Bồ Đề", street: [] },
+      { name: "Gia Thụy", street: [] },
+      { name: "Đức Giang", street: [] },
+      { name: "Thạch Bàn", street: [] },
+      { name: "Sài Đồng", street: [] },
+      { name: "Ngọc Lâm", street: [] },                  
     ],
   },
 ];
