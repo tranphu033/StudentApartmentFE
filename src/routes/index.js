@@ -2,19 +2,27 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../views/layout";
 import Home from "../views/home";
 import PostDetail from "../views/post-detail";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import postApi from "../apis/postApi";
 
 const AppRoutes = () => {
   const [listPost, setListPost] = useState([]);
   const [sortType, setSortType] = useState(0);
   const [curPage, setCurPage] = useState(1);
+  const [filterCondition, setFilterCondition] = useState({});
 
-  const getListPost = async (params) => {
-    const res = await postApi.getList(params);
-    console.log("listpost::", res);
+  const getListPost = async () => {
+    const res = await postApi.getList({
+      sortType: sortType,
+      ...filterCondition,
+    });
+    // console.log("listpost::", res);
     setListPost(res);
   };
+  useEffect(() => {
+    getListPost();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortType, filterCondition]);
 
   return (
     <BrowserRouter>
@@ -23,9 +31,9 @@ const AppRoutes = () => {
           path="*"
           element={
             <Layout
-              getListPost={getListPost}
               setSortType={setSortType}
               setCurPage={setCurPage}
+              setFilterCondition={setFilterCondition}
             >
               <Routes>
                 <Route
@@ -33,7 +41,6 @@ const AppRoutes = () => {
                   element={
                     <Home
                       listPost={listPost}
-                      setListPost={setListPost}
                       sortType={sortType}
                       setSortType={setSortType}
                       curPage={curPage}

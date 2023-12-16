@@ -62,10 +62,10 @@ export default function PostDetail() {
     const getPostDetail = useCallback(async (id) => {
         const res = await postApi.getPostDetail(id)
         setPostDetail(res);
-        getSimilarPosts(res.district, res.ward, res.price)
+        getSimilarPosts(res.price, res.land_area, res.type)
     }, [])
-    const getSimilarPosts = async (district, ward, price) => {
-        const res2 = await postApi.getSimilarPosts(district, ward, price)
+    const getSimilarPosts = async (price, area, type) => {
+        const res2 = await postApi.getSimilarPosts(price, area, type)
         setSimilarNews(res2)
     }
     const getHotNews = useCallback(async () => {
@@ -75,13 +75,8 @@ export default function PostDetail() {
     }, [])
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-        try {
-            getPostDetail(postId);
-            getHotNews();
-        } catch (error) {
-            console.error(error);
-        }
+        getPostDetail(postId);
+        getHotNews();
     }, [postId, getHotNews, getPostDetail]);
     return (
         (postDetail ? (
