@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import { IoMdAdd } from "react-icons/io";
 import { AiFillHeart } from "react-icons/ai";
 import SearchForm from "./SearchForm";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import clsx from "clsx";
 
 export default function Layout({
@@ -73,8 +73,8 @@ export default function Layout({
           className="fs-14 fw-700 d-flex justify-content-center border bg-dark text-white flex-wrap"
           style={{ minHeight: "42px" }}
         >
-          <Link
-            to="/"
+          <a
+            href="/"
             className={clsx(
               "px-3 nav-link d-flex align-items-center",
               curNavOption === 1 && "bg-white"
@@ -83,16 +83,16 @@ export default function Layout({
             <span className={clsx(curNavOption === 1 && "text-main")}>
               Trang chủ
             </span>
-          </Link>
-          <Link to="#" className="px-3 nav-link d-flex align-items-center">
+          </a>
+          <a href="#" className="px-3 nav-link d-flex align-items-center">
             Phòng trọ
-          </Link>
-          <Link to="#" className="px-3 nav-link d-flex align-items-center">
+          </a>
+          <a href="#" className="px-3 nav-link d-flex align-items-center">
             Nhà nguyên căn
-          </Link>
-          <Link to="#" className="px-3 nav-link d-flex align-items-center">
+          </a>
+          <a href="#" className="px-3 nav-link d-flex align-items-center">
             Chung cư
-          </Link>
+          </a>
         </div>
       </div>
       <div
