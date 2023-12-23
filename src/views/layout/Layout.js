@@ -12,6 +12,8 @@ export default function Layout({
   setCurPage,
   setFilterCondition,
   curNavOption,
+  useRightFilter,
+  setUseRightFilter,
 }) {
   const btnStyle = "d-flex align-items-center gap-2";
 
@@ -109,6 +111,8 @@ export default function Layout({
           setSortType={setSortType}
           setCurPage={setCurPage}
           setFilterCondition={setFilterCondition}
+          useRightFilter={useRightFilter}
+          setUseRightFilter={setUseRightFilter}
         />
       </div>
       {children}

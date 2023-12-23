@@ -19,6 +19,8 @@ export default function SearchForm({
   setSortType,
   setCurPage,
   setFilterCondition,
+  useRightFilter,
+  setUseRightFilter,
 }) {
   const [priceRange, setPriceRange] = useState({ min: -1, max: -1 });
   const [areaRange, setAreaRange] = useState({ min: -1, max: -1 });
@@ -95,13 +97,14 @@ export default function SearchForm({
 
   const removeDivisionType = (str) => {
     let arr = str.split(" ");
-    arr.shift()
-    return arr.join(' ');
+    arr.shift();
+    return arr.join(" ");
   };
 
   const handleSearch = () => {
     setSortType(0);
     setCurPage(1);
+    setUseRightFilter(false);
 
     let filterCondition = {};
     if (apartTypes.length > 0) {
@@ -156,6 +159,19 @@ export default function SearchForm({
   // useEffect(() => {
   //   setStreet("");
   // }, [ward]);
+  useEffect(() => {
+    if (useRightFilter) {
+      setApartTypes([]);
+      setPriceRange({ min: -1, max: -1 });
+      setAreaRange({ min: -1, max: -1 });
+      setDistrict("");
+      setWard("");
+    }
+  }, [useRightFilter]);
+  // useEffect(() => {
+  //   setUseRightFilter(false);
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [apartTypes, priceRange, areaRange, district, ward]);
 
   return (
     <Stack
