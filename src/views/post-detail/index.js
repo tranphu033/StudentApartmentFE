@@ -25,6 +25,8 @@ import {
 import avatarImg from '../../assets/avatar.png'
 import postApi from "../../apis/postApi";
 import dayjs from "dayjs";
+import Mcomment from "./mComment";
+import MockReview from "../../mock/listComment";
 
 
 
@@ -55,6 +57,7 @@ const slideProperties = {
 
 export default function PostDetail({setCurNavOption}) {
     let navigate = useNavigate();
+    const listComment = MockReview;
     const { postId } = useParams();
     const [postDetail, setPostDetail] = useState([]);
     const [hotNews, setHotNews] = useState([]);
@@ -69,7 +72,7 @@ export default function PostDetail({setCurNavOption}) {
         setSimilarNews(res2)
     }
     const getHotNews = useCallback(async () => {
-        const res = await postApi.getHotNews()
+        const res =  await postApi.getHotNews()
         setHotNews(res)
 
     }, [])
@@ -208,6 +211,10 @@ export default function PostDetail({setCurNavOption}) {
                             <iframe title="maps" src={`https://maps.google.com/maps?q=${postDetail.latitude}, ${postDetail.longitude}&z=15&output=embed`} width="100%" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
+                    {/* phan binh luan*/}
+                    <div className="post-comment">
+                            <Mcomment listCommentData = {listComment}/>
+                    </div>
                 </div>
                 <div className="right-box mt-5 ">
                     <div className="box-border owner-info">
@@ -257,6 +264,8 @@ export default function PostDetail({setCurNavOption}) {
 
                     </div>
                 </div>
-            </div>) : 'Đang tải dữ liệu')
+            </div>
+            
+            ) : 'Đang tải dữ liệu')
     );
 }
