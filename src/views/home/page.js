@@ -3,6 +3,7 @@ import Col from "react-bootstrap/Col";
 import "./pageStyle.css";
 import ListPost from "./ListPost";
 import RightFilter from "./RightFilter";
+import { useState } from "react";
 
 export default function Home({
   listPost,
@@ -11,7 +12,13 @@ export default function Home({
   curPage,
   setCurPage,
   setCurNavOption,
+  useRightFilter,
+  setUseRightFilter,
+  setFilterCondition,
 }) {
+  const [priceRangeRF, setPriceRangeRF] = useState();
+  const [areaRangeRF, setAreaRangeRF] = useState();
+
   return (
     <>
       <Row
@@ -26,10 +33,18 @@ export default function Home({
             curPage={curPage}
             setCurPage={setCurPage}
             setCurNavOption={setCurNavOption}
+            useRightFilter={useRightFilter}
+            priceRangeRF={priceRangeRF}
+            areaRangeRF={areaRangeRF}
           />
         </Col>
         <Col className="md-down-collapse p-2" md={3}>
-          <RightFilter />
+          <RightFilter
+            setUseRightFilter={setUseRightFilter}
+            setFilterCondition={setFilterCondition}            
+            setPriceRangeRF={setPriceRangeRF}
+            setAreaRangeRF={setAreaRangeRF}
+          />
         </Col>
       </Row>
     </>
