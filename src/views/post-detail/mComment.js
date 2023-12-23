@@ -3,33 +3,33 @@ import avatarImg from '../../assets/avatar.png'
 import TextareaAutosize from 'react-textarea-autosize';
 import OtherComment from "./otherComment";
 import { useEffect, useState } from "react";
+import postApi from "../../apis/postApi";
+import dayjs from "dayjs";
 
-
-export default function Mcomment({listCommentData}){
-    const [listComment, setListComment] = useState(listCommentData);
+export default function Mcomment({ listCommentData, postId }) {
+    const [listComment, setListComment] = useState([...listCommentData].reverse());
     const [userComment, setUserComment] = useState("");
+    const [user] = useState(JSON.parse(localStorage.getItem('user')))
+
     const [indexComment, setIndexComment] = useState(3);
     const handlerLoadMoreClick = () => {
-        setIndexComment((prev) => prev+3)
-        console.log("2" +listComment)
+        setIndexComment((prev) => prev + 3)
+        console.log(user)
     }
-    const submitCommetFunc = () => {
+    const submitCommetFunc = async () => {
         setIndexComment(3)
-        setUserComment('')
-        const userCommentData = {
-            id: listComment.length,
-            user_id: 1,
-            post_id: 1,
-            user_name: "Chi bi",
-            content: userComment,
-            like_nums: 0,
-            time: "now",
-            like_details: [],
-        }
-        setListComment([userCommentData,...listComment])
-        console.log("1" + listComment)
-     
-
+        setUserComment('');
+        const response = await postApi.reviewPost({
+            userId: user.id,
+            postId: postId,
+            content: userComment
+        })
+        const newData = { ...response }
+        newData.like_number = 0
+        newData.liked_by_current_user = false
+        newData.posted_time = "now"
+        newData.user = user;
+        setListComment([newData, ...listComment])
     }
 
 
@@ -38,34 +38,38 @@ export default function Mcomment({listCommentData}){
             <div className="comment-title">
                 <h4>Bình luận</h4>
             </div>
-            <div className="input-comment">
-                <div className="userInfo">
-                    <img src={avatarImg}/>
-                    <span className="txt-username">Nguyễn Văn A</span>
+            {localStorage.getItem('user') &&
+                <div className="input-comment">
+
+                    <div className="userInfo">
+                        <img src={avatarImg} />
+                        <span className="txt-username">{user.username}</span>
+                    </div>
+
+                    <TextareaAutosize type="text" className="input-content" placeholder="Something" value={userComment} onChange={(e) => { setUserComment(e.target.value) }} />
+                    <div className="solid-line"><span></span></div>
+                    <div className="input-submit" onClick={submitCommetFunc}><span className="btn-submit">Bình luận</span></div>
                 </div>
-                <TextareaAutosize type="text" className="input-content" placeholder="Something" value={userComment} onChange={(e)=>{console.log(e.target.value); setUserComment(e.target.value)}}/>
-                <div className="solid-line"><span></span></div>
-                <div className="input-submit" onClick={submitCommetFunc}><span className="btn-submit">Bình luận</span></div>
-            </div>
-            {(listComment.length > 0 ) ?( 
+            }
+            {(listComment.length > 0) ? (
                 <div>
                     <div>
-                        {listComment.map((comment,index) => (index < indexComment) &&
-                        <OtherComment commentContent={comment} key = {comment.id}
-                        />) }
+                        {listComment.map((comment, index) => (index < indexComment) &&
+                            <OtherComment commentContent={comment} key={comment.id}
+                            />)}
                         {(indexComment < listComment.length) &&
-                        <div className="load-more" onClick={handlerLoadMoreClick}>
-                            <div className="load-more-btn">Load more ...</div>
-                        </div>
+                            <div className="load-more" onClick={handlerLoadMoreClick}>
+                                <div className="load-more-btn">Load more ...</div>
+                            </div>
                         }
                     </div>
-                    
+
                 </div>
-                ) : (
-                    <p className="txt-noComment">Chưa có bình luận nào</p>
-                )
+            ) : (
+                <p className="txt-noComment">Chưa có bình luận nào</p>
+            )
             }
-            
+
         </div>
     )
 }

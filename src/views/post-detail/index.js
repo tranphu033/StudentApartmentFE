@@ -63,7 +63,8 @@ export default function PostDetail({ setCurNavOption }) {
     const [hotNews, setHotNews] = useState([]);
     const [similarNews, setSimilarNews] = useState([]);
     const getPostDetail = useCallback(async (id) => {
-        const res = await postApi.getPostDetail(id)
+        const userId = JSON.parse(localStorage.getItem('user'))?.id
+        const res = await postApi.getPostDetail(id, userId)
         setPostDetail(res);
         getSimilarPosts(res.price, res.land_area, res.type)
     }, [])
@@ -72,7 +73,7 @@ export default function PostDetail({ setCurNavOption }) {
         setSimilarNews(res2)
     }
     const getHotNews = useCallback(async () => {
-        const res =  await postApi.getHotNews()
+        const res = await postApi.getHotNews()
         setHotNews(res)
 
     }, [])
@@ -213,9 +214,9 @@ export default function PostDetail({ setCurNavOption }) {
                         </div>
                     </div>
                     {/* phan binh luan*/}
-                    <div className="post-comment">
-                            <Mcomment listCommentData = {listComment}/>
-                    </div>
+                    {postDetail.reviews && <div className="post-comment">
+                        <Mcomment listCommentData={postDetail.reviews} postId={postDetail.id} />
+                    </div>}
                 </div>
                 <div className="right-box mt-5 ">
                     <div className="box-border owner-info">
@@ -266,7 +267,7 @@ export default function PostDetail({ setCurNavOption }) {
                     </div>
                 </div>
             </div>
-            
-            ) : 'Đang tải dữ liệu')
+
+        ) : 'Đang tải dữ liệu')
     );
 }
