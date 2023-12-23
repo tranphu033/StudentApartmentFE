@@ -80,7 +80,6 @@ export default function PostDetail({ setCurNavOption }) {
         getHotNews();
     }, [postId, getHotNews, getPostDetail]);
     useEffect(() => {
-
         setCurNavOption(0)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
