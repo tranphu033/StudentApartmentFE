@@ -9,15 +9,18 @@ import { useEffect, useState } from "react";
 import ApartTypeFilterForm from "./ApartTypeFilterForm";
 import PriceRangeMenu from "./PriceRangeMenu";
 import AreaRangeMenu from "./AreaRangeMenu";
-import { apartFilter, locationList } from "../../constants";
+import { apartFilter } from "../../constants";
 import Badge from "react-bootstrap/Badge";
 import LocationSelect from "../../components/LocationSelect";
 import { useNavigate } from "react-router-dom";
+import { locationList } from "../../constants/locationList";
 
 export default function SearchForm({
   setSortType,
   setCurPage,
   setFilterCondition,
+  useRightFilter,
+  setUseRightFilter,
 }) {
   const [priceRange, setPriceRange] = useState({ min: -1, max: -1 });
   const [areaRange, setAreaRange] = useState({ min: -1, max: -1 });
@@ -25,8 +28,8 @@ export default function SearchForm({
   const [district, setDistrict] = useState("");
   const [ward, setWard] = useState("");
   const [curWardList, setCurWardList] = useState([]);
-  const [street, setStreet] = useState("");
-  const [curStreetList, setCurStreetList] = useState([]);
+  // const [street, setStreet] = useState("");
+  // const [curStreetList, setCurStreetList] = useState([]);
   const navigate = useNavigate();
 
   const CurrentPriceRange = () => {
@@ -91,9 +94,17 @@ export default function SearchForm({
         </div>
       );
   };
-  const handleSearch = async () => {
+
+  const removeDivisionType = (str) => {
+    let arr = str.split(" ");
+    arr.shift();
+    return arr.join(" ");
+  };
+
+  const handleSearch = () => {
     setSortType(0);
     setCurPage(1);
+    setUseRightFilter(false);
 
     let filterCondition = {};
     if (apartTypes.length > 0) {
@@ -111,9 +122,9 @@ export default function SearchForm({
       if (areaRange.min > 0) filterCondition.areaMin = areaRange.min;
       if (areaRange.max > 0) filterCondition.areaMax = areaRange.max;
     }
-    if (district) filterCondition.district = district;
-    if (ward) filterCondition.ward = ward;
-    if (street) filterCondition.street = street;
+    if (district) filterCondition.district = removeDivisionType(district);
+    if (ward) filterCondition.ward = removeDivisionType(ward);
+    // if (street) filterCondition.street = street;
     // console.log("filter condition::", filterCondition);
     setFilterCondition(filterCondition);
     if (window.location.pathname !== "/") navigate("/");
@@ -122,32 +133,45 @@ export default function SearchForm({
   useEffect(() => {
     if (!district) {
       setWard("");
-      setStreet("");
+      // setStreet("");
     }
     let wardList = locationList
-      .find((item) => item.district === district)
-      ?.ward.map((item) => {
+      .find((item) => item.name === district)
+      ?.wards.map((item) => {
         return item.name;
       });
     setCurWardList(wardList);
   }, [district]);
-  useEffect(() => {
-    if (!ward) {
-      setStreet("");
-    }
-    let streetList = locationList
-      .find((item) => item.district === district)
-      ?.ward.find((item) => item.name === ward)?.street;
-    setCurStreetList(streetList);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ward]);
+  // useEffect(() => {
+  //   if (!ward) {
+  //     setStreet("");
+  //   }
+  //   let streetList = locationList
+  //     .find((item) => item.district === district)
+  //     ?.ward.find((item) => item.name === ward)?.street;
+  //   setCurStreetList(streetList);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [ward]);
   useEffect(() => {
     setWard("");
-    setStreet("");
+    // setStreet("");
   }, [district]);
+  // useEffect(() => {
+  //   setStreet("");
+  // }, [ward]);
   useEffect(() => {
-    setStreet("");
-  }, [ward]);
+    if (useRightFilter) {
+      setApartTypes([]);
+      setPriceRange({ min: -1, max: -1 });
+      setAreaRange({ min: -1, max: -1 });
+      setDistrict("");
+      setWard("");
+    }
+  }, [useRightFilter]);
+  // useEffect(() => {
+  //   setUseRightFilter(false);
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [apartTypes, priceRange, areaRange, district, ward]);
 
   return (
     <Stack
@@ -175,7 +199,7 @@ export default function SearchForm({
             className="mt-2"
             defaultText="Quận/Huyện"
             itemList={locationList.map((item) => {
-              return item.district;
+              return item.name;
             })}
             item={district}
             setItem={setDistrict}
@@ -189,7 +213,7 @@ export default function SearchForm({
             disabled={!district}
             message={"Vui lòng chọn Quận/Huyện"}
           />
-          <LocationSelect
+          {/* <LocationSelect
             className="mt-2"
             defaultText="Đường/Phố"
             itemList={curStreetList}
@@ -197,7 +221,7 @@ export default function SearchForm({
             setItem={setStreet}
             disabled={!ward}
             message={"Vui lòng chọn Phường/Xã"}
-          />
+          /> */}
         </div>
         <span
           className="d-inline-block ms-3 mb-2 cursor-pointer text-hover-main"

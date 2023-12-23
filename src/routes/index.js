@@ -4,6 +4,7 @@ import Home from "../views/home";
 import PostDetail from "../views/post-detail";
 import { useEffect, useState } from "react";
 import postApi from "../apis/postApi";
+import Login from "../views/auth/Login";
 
 const AppRoutes = () => {
   const [listPost, setListPost] = useState([]);
@@ -11,6 +12,7 @@ const AppRoutes = () => {
   const [curPage, setCurPage] = useState(1);
   const [filterCondition, setFilterCondition] = useState({});
   const [curNavOption, setCurNavOption] = useState(0);
+  const [useRightFilter, setUseRightFilter] = useState(false);
 
   const getListPost = async () => {
     const res = await postApi.getList({
@@ -36,6 +38,8 @@ const AppRoutes = () => {
               setCurPage={setCurPage}
               setFilterCondition={setFilterCondition}
               curNavOption={curNavOption}
+              useRightFilter={useRightFilter}
+              setUseRightFilter={setUseRightFilter}
             >
               <Routes>
                 <Route
@@ -48,6 +52,9 @@ const AppRoutes = () => {
                       curPage={curPage}
                       setCurPage={setCurPage}
                       setCurNavOption={setCurNavOption}
+                      useRightFilter={useRightFilter}
+                      setUseRightFilter={setUseRightFilter}
+                      setFilterCondition={setFilterCondition}
                     />
                   }
                 />
@@ -59,6 +66,7 @@ const AppRoutes = () => {
             </Layout>
           }
         />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

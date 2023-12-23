@@ -55,7 +55,7 @@ const slideProperties = {
     ),
 };
 
-export default function PostDetail({setCurNavOption}) {
+export default function PostDetail({ setCurNavOption }) {
     let navigate = useNavigate();
     const listComment = MockReview;
     const { postId } = useParams();
@@ -78,12 +78,13 @@ export default function PostDetail({setCurNavOption}) {
     }, [])
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         getPostDetail(postId);
         getHotNews();
     }, [postId, getHotNews, getPostDetail]);
-    useEffect(()=>{
-        setCurNavOption(0)        
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        setCurNavOption(0)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
         (postDetail ? (

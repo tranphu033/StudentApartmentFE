@@ -66,8 +66,8 @@ export default function LocationSelect({
       {isShowDrop && (
         <div className="position-absolute start-100 top-0">
           <div
-            className="border bg-white rounded shadow-sm"
-            style={{ minWidth: "130px" }}
+            className="border bg-white rounded shadow-sm overflow-y-auto"
+            style={{ minWidth: "200px", maxHeight: '300px' }}
           >
             {itemList?.map((item, index) => (
               <div
