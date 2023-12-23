@@ -11,15 +11,23 @@ const postApi = {
     }
     return customAxios.get(query);
   },
-  getPostDetail: (id) => {
-    return customAxios.get(`${prefix}/${id}`);
+  getPostDetail: (id, userId) => {
+    return customAxios.get(`${prefix}/${id}?user_id=${userId}`);
   },
   getHotNews: () => {
     return customAxios.get(`${prefix}/featured`);
   },
   getSimilarPosts: (price, area, type) => {
     return customAxios.get(`${prefix}/similar?price=${price}&area=${area}&type=${type}`);
-  }
+  },
+  reviewPost: (data) => {
+    return customAxios.post(`/review/store`, data);
+  },
+  likeReview: (data) => {
+    return customAxios.post(`/review/like`, data);
+  },
+
+
 };
 
 export default postApi;

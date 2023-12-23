@@ -2,40 +2,49 @@ import "./mComment.css";
 import avatarImg from '../../assets/avatar.png'
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { useState } from "react";
+import dayjs from "dayjs";
+import postApi from "../../apis/postApi";
 
-export default function OtherComment({commentContent}) {
+export default function OtherComment({ commentContent }) {
+    const [user] = useState(JSON.parse(localStorage.getItem('user')))
     const [comment, setComment] = useState(commentContent);
     const user_id = 1
 
-    const handlerOnClickLike = () => {
-        setComment({...comment, like_details:[...comment.like_details, {user_id: user_id}]})
+    const handlerOnClickLike = async () => {
+        if (localStorage.getItem('user')) {
+            const response = await postApi.likeReview({
+                userId: user.id,
+                reviewId: comment.id
+            })
+            if (response === "ok") setComment({ ...comment, like_number: comment.like_number + 1, liked_by_current_user: true })
+        }
     }
-    const handlerOnClickUnLike = () => {
-        setComment({...comment, like_details:[...comment.like_details.filter(item => item.user_id !==  user_id)]})
+    // const handlerOnClickUnLike = () => {
+    //     setComment({ ...comment, like_details: [...comment.like_details.filter(item => item.user_id !== user_id)] })
 
-    }
+    // }
 
     return (
         <div className="other-comment">
             <div className="userInfo">
                 <img src={avatarImg} />
-                <span className="txt-username">{comment.user_name}</span>
-                <span className="txt-time">{comment.time}</span>
+                <div>
+                    <span className="txt-username">{comment.user.username}</span>
+                    <span className="txt-time">{comment.posted_time}</span>
+                </div>
             </div>
             <div className="comment-content">
                 <p>{comment.content}</p>
             </div>
             <div className="solid-line"><span></span></div>
             <div className="react-container">
-                {comment.like_details?.some(item => {
-                    return item.user_id === 1
-                }) ? 
-                <AiFillLike onClick={handlerOnClickUnLike}
-                    className="like-icon"
-                />:
-                <AiOutlineLike className="like-icon" onClick={handlerOnClickLike}/>
+                {comment.liked_by_current_user ?
+                    <AiFillLike
+                        className="like-icon"
+                    /> :
+                    <AiOutlineLike className="like-icon" onClick={handlerOnClickLike} />
                 }
-                <span className="like-count">{comment.like_details?.length}</span>
+                <span className="like-count">{comment.like_number}</span>
             </div>
         </div>
     )
