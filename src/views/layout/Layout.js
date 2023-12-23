@@ -24,6 +24,7 @@ export default function Layout({
   const handleLogout = () => {
     setIsAuth(false);
     localStorage.removeItem("user");
+    window.location.reload();
   };
 
   useEffect(() => {
