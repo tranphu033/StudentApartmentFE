@@ -4,6 +4,7 @@ import Home from "../views/home";
 import PostDetail from "../views/post-detail";
 import { useEffect, useState } from "react";
 import postApi from "../apis/postApi";
+import Login from "../views/auth/Login";
 
 const AppRoutes = () => {
   const [listPost, setListPost] = useState([]);
@@ -65,6 +66,7 @@ const AppRoutes = () => {
             </Layout>
           }
         />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
