@@ -7,6 +7,7 @@ import { useState } from "react";
 
 export default function Home({
   listPost,
+  setListPost,
   sortType,
   setSortType,
   curPage,
@@ -28,6 +29,7 @@ export default function Home({
         <Col className="" md={9}>
           <ListPost
             listPost={listPost}
+            setListPost={setListPost}
             sortType={sortType}
             setSortType={setSortType}
             curPage={curPage}
@@ -41,7 +43,7 @@ export default function Home({
         <Col className="md-down-collapse p-2" md={3}>
           <RightFilter
             setUseRightFilter={setUseRightFilter}
-            setFilterCondition={setFilterCondition}            
+            setFilterCondition={setFilterCondition}
             setPriceRangeRF={setPriceRangeRF}
             setAreaRangeRF={setAreaRangeRF}
           />

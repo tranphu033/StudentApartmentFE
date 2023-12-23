@@ -2,9 +2,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import { useForm } from "react-hook-form";
-import userApi from "../../apis/user";
+import userApi from "../../apis/userApi";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const {
@@ -14,8 +13,7 @@ export default function Login() {
   } = useForm();
   const [isLoading, setIsLoading] = useState(false);
   const [isFailed, setIsFailed] = useState(false);
-  const navigate = useNavigate()
-
+  
   const onSubmit = async (data) => {
     console.log("data::", data);
     try {
@@ -25,7 +23,7 @@ export default function Login() {
       setIsLoading(false);
       console.log("res::", res);
       localStorage.setItem('user', JSON.stringify(res))
-      navigate('/');
+      window.location.href = '/'
     } catch (e) {
       setIsLoading(false);
       setIsFailed(true);

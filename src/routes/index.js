@@ -47,6 +47,7 @@ const AppRoutes = () => {
                   element={
                     <Home
                       listPost={listPost}
+                      setListPost={setListPost}
                       sortType={sortType}
                       setSortType={setSortType}
                       curPage={curPage}

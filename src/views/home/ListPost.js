@@ -5,13 +5,15 @@ import Form from "react-bootstrap/Form";
 import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
 import { LuDot } from "react-icons/lu";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
+import userApi from "../../apis/userApi";
 
 export default function ListPost({
   listPost,
+  setListPost,
   sortType,
   setSortType,
   curPage,
@@ -25,6 +27,7 @@ export default function ListPost({
   const perPage = 3;
   const pageNum = Math.ceil(listPost.length / perPage);
   const [curPageStartIndex, setCurPageStartIndex] = useState(0);
+  const user_id = JSON.parse(localStorage.getItem("user"))?.id;
 
   const handleRedirectPage = (type, index) => {
     if (type === "BACK") {
@@ -42,6 +45,28 @@ export default function ListPost({
     const offset = 180;
     document.body.scrollTop = offset; // For Safari
     document.documentElement.scrollTop = offset; // For Chrome, Firefox, IE and Opera
+  };
+  const handleSavePost = async (post_id) => {
+    await userApi.addBm(user_id, post_id);
+    alert("Lưu thành công!");
+    let temp = [...listPost];
+    for (let i = 0; i < temp.length; i++) {
+      if (temp[i].id === post_id) {
+        temp[i].isSaved = true;
+      }
+    }
+    setListPost(temp);
+  };
+  const handleRemoveSaved = async (post_id) => {
+    await userApi.deleteBm(user_id, post_id);
+    alert("Bỏ lưu thành công!");
+    let temp = [...listPost];
+    for (let i = 0; i < temp.length; i++) {
+      if (temp[i].id === post_id) {
+        temp[i].isSaved = false;
+      }
+    }
+    setListPost(temp);
   };
 
   useEffect(() => {
@@ -64,7 +89,7 @@ export default function ListPost({
           <div>
             {priceRangeRF && (
               <>
-                Giá cho thuê {" "}
+                Giá cho thuê{" "}
                 {priceRangeRF.min === 0 && <span>dưới {priceRangeRF.max}</span>}
                 {priceRangeRF.max === 0 && <span>trên {priceRangeRF.min}</span>}
                 {priceRangeRF.min !== 0 && priceRangeRF.max !== 0 ? (
@@ -77,7 +102,7 @@ export default function ListPost({
             )}
             {areaRangeRF && (
               <>
-                Diện tích {" "}
+                Diện tích{" "}
                 {areaRangeRF.min === 0 && <span>dưới {areaRangeRF.max}</span>}
                 {areaRangeRF.max === 0 && <span>trên {areaRangeRF.min}</span>}
                 {areaRangeRF.min !== 0 && areaRangeRF.max !== 0 ? (
@@ -126,9 +151,6 @@ export default function ListPost({
               className="border-main rounded p-2 mb-4 shadow"
               key={index}
               style={{ cursor: "pointer" }}
-              onClick={() => {
-                navigate("/post/" + item.id);
-              }}
             >
               <div className="d-flex" style={{ maxHeight: "300px" }}>
                 <img
@@ -153,7 +175,12 @@ export default function ListPost({
                 </div>
                 <img src={images[3].url} alt={images[3].url} width="34%" />
               </div>
-              <div className="fw-bold mt-2 cursor-pointer fs-18 fw-700">
+              <div
+                className="fw-bold mt-2 cursor-pointer fs-18 fw-700"
+                onClick={() => {
+                  navigate("/post/" + item.id);
+                }}
+              >
                 {item.title}
               </div>
               <div className="mt-2">
@@ -172,7 +199,17 @@ export default function ListPost({
                     {", Hà Nội"}
                   </span>
                 </div>
-                <AiOutlineHeart className="text-danger ms-4 cursor-pointer" />
+                {!item.isSaved ? (
+                  <AiOutlineHeart
+                    className="text-danger ms-4 cursor-pointer"
+                    onClick={() => handleSavePost(item.id)}
+                  />
+                ) : (
+                  <AiFillHeart
+                    className="text-danger ms-4 cursor-pointer"
+                    onClick={() => handleRemoveSaved(item.id)}
+                  />
+                )}
               </div>
               <div className="mt-2 fw-600">Địa chỉ: {item.address}</div>
               <div className="text-sm fw-500">
