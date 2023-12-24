@@ -13,8 +13,8 @@ export default function OtherComment({ commentContent }) {
     const handlerOnClickLike = async () => {
         if (localStorage.getItem('user')) {
             const response = await postApi.likeReview({
-                userId: user.id,
-                reviewId: comment.id
+                user_id: user.id,
+                review_id: comment.id
             })
             if (response === "ok") setComment({ ...comment, like_number: comment.like_number + 1, liked_by_current_user: true })
         }

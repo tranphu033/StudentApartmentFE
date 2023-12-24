@@ -20,8 +20,8 @@ export default function Mcomment({ listCommentData, postId }) {
         setIndexComment(3)
         setUserComment('');
         const response = await postApi.reviewPost({
-            userId: user.id,
-            postId: postId,
+            user_id: user.id,
+            post_id: postId,
             content: userComment
         })
         const newData = { ...response }
