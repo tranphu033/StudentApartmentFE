@@ -1,15 +1,16 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./pageStyle.css";
-// import { useState } from "react";
 import SavedListPost from "./SavedListPost";
-import { useEffect } from "react";
-import RightFilter from "./RightFilter";
+import { useContext, useEffect } from "react";
+import RightFilter from "../../components/RightFilter";
+import { PostContext } from "../../routes";
 
-export default function Bookmark({ setCurNavOption }) {
+export default function Bookmark() {
+  const { setCurNavOption } = useContext(PostContext);
   useEffect(() => {
-    setCurNavOption(0);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setCurNavOption("bookmarks");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
@@ -21,7 +22,7 @@ export default function Bookmark({ setCurNavOption }) {
           <SavedListPost />
         </Col>
         <Col className="md-down-collapse p-2" md={3}>
-          <RightFilter />
+          <RightFilter marginTop="39px" />
         </Col>
       </Row>
     </>

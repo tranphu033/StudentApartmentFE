@@ -1,12 +1,21 @@
-import { areaFilter, priceFilter } from "../../constants";
+import { useContext } from "react";
+import { PostContext } from "../routes";
+import { areaFilter, priceFilter } from "../constants";
+import { useNavigate } from "react-router-dom";
 
-export default function RightFilter({
-  setUseRightFilter,
-  setFilterCondition,
-  setPriceRangeRF,
-  setAreaRangeRF,
-}) {
+export default function RightFilter({ marginTop }) {
+  const {
+    setCurPage,
+    setUseRightFilter,
+    setFilterCondition,
+    setPriceRangeRF,
+    setAreaRangeRF,
+  } = useContext(PostContext);
+  const navigate = useNavigate();
+
   const handleSelect = (item, type) => {
+    navigate("/");
+    setCurPage(1);
     setUseRightFilter(true);
     let condition = {};
     if (type === "PRICE") {
@@ -30,7 +39,7 @@ export default function RightFilter({
     <div>
       <div
         className="border-main rounded shadow-sm"
-        style={{ marginTop: "72px", zIndex: 1 }}
+        style={{ marginTop: marginTop }}
       >
         <div className="mt-1 ms-3 mb-1 fw-700">Lọc theo khoảng giá</div>
         {priceFilter?.map((item, index) => (

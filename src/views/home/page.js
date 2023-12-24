@@ -2,23 +2,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./pageStyle.css";
 import ListPost from "./ListPost";
-import RightFilter from "./RightFilter";
-import { useState } from "react";
+import RightFilter from "../../components/RightFilter";
 
-export default function Home({
-  listPost,
-  setListPost,
-  sortType,
-  setSortType,
-  curPage,
-  setCurPage,
-  setCurNavOption,
-  useRightFilter,
-  setUseRightFilter,
-  setFilterCondition,
-}) {
-  const [priceRangeRF, setPriceRangeRF] = useState();
-  const [areaRangeRF, setAreaRangeRF] = useState();
+export default function Home() {  
 
   return (
     <>
@@ -27,26 +13,10 @@ export default function Home({
         style={{ marginLeft: "10%", marginRight: "20%" }}
       >
         <Col className="" md={9}>
-          <ListPost
-            listPost={listPost}
-            setListPost={setListPost}
-            sortType={sortType}
-            setSortType={setSortType}
-            curPage={curPage}
-            setCurPage={setCurPage}
-            setCurNavOption={setCurNavOption}
-            useRightFilter={useRightFilter}
-            priceRangeRF={priceRangeRF}
-            areaRangeRF={areaRangeRF}
-          />
+          <ListPost />
         </Col>
         <Col className="md-down-collapse p-2" md={3}>
-          <RightFilter
-            setUseRightFilter={setUseRightFilter}
-            setFilterCondition={setFilterCondition}
-            setPriceRangeRF={setPriceRangeRF}
-            setAreaRangeRF={setAreaRangeRF}
-          />
+          <RightFilter marginTop="72px" />
         </Col>
       </Row>
     </>

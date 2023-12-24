@@ -7,22 +7,24 @@ import Button from "react-bootstrap/Button";
 import { LuDot } from "react-icons/lu";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import clsx from "clsx";
 import userApi from "../../apis/userApi";
+import { PostContext } from "../../routes";
 
-export default function ListPost({
-  listPost,
-  setListPost,
-  sortType,
-  setSortType,
-  curPage,
-  setCurPage,
-  setCurNavOption,
-  useRightFilter,
-  priceRangeRF,
-  areaRangeRF,
-}) {
+export default function ListPost() {
+  const {
+    listPost,
+    setListPost,
+    sortType,
+    setSortType,
+    curPage,
+    setCurPage,
+    setCurNavOption,
+    useRightFilter,
+    priceRangeRF,
+    areaRangeRF,
+  } = useContext(PostContext);
   let navigate = useNavigate();
   const perPage = 3;
   const pageNum = Math.ceil(listPost.length / perPage);
@@ -77,7 +79,7 @@ export default function ListPost({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortType]);
   useEffect(() => {
-    setCurNavOption(1);
+    setCurNavOption("home");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -176,7 +178,7 @@ export default function ListPost({
                 <img src={images[3].url} alt={images[3].url} width="34%" />
               </div>
               <div
-                className="fw-bold mt-2 cursor-pointer fs-18 fw-700"
+                className="fw-bold mt-2 cursor-pointer fs-18 fw-700 text-hover-main"
                 onClick={() => {
                   navigate("/post/" + item.id);
                 }}

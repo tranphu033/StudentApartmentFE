@@ -5,7 +5,7 @@ import { IApartAll, IArea } from "../../common/icons";
 import { CiLocationOn } from "react-icons/ci";
 import { IoPricetagOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ApartTypeFilterForm from "./ApartTypeFilterForm";
 import PriceRangeMenu from "./PriceRangeMenu";
 import AreaRangeMenu from "./AreaRangeMenu";
@@ -14,14 +14,16 @@ import Badge from "react-bootstrap/Badge";
 import LocationSelect from "../../components/LocationSelect";
 import { useNavigate } from "react-router-dom";
 import { locationList } from "../../constants/locationList";
+import { PostContext } from "../../routes";
 
-export default function SearchForm({
-  setSortType,
-  setCurPage,
-  setFilterCondition,
-  useRightFilter,
-  setUseRightFilter,
-}) {
+export default function SearchForm() {
+  const {
+    setSortType,
+    setCurPage,
+    setFilterCondition,
+    useRightFilter,
+    setUseRightFilter,
+  } = useContext(PostContext);
   const [priceRange, setPriceRange] = useState({ min: -1, max: -1 });
   const [areaRange, setAreaRange] = useState({ min: -1, max: -1 });
   const [apartTypes, setApartTypes] = useState([]);

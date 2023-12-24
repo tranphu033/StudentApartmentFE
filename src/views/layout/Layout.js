@@ -6,25 +6,19 @@ import SearchForm from "./SearchForm";
 // import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
+import { PostContext } from "../../routes";
 
-export default function Layout({
-  children,
-  setSortType,
-  setCurPage,
-  setFilterCondition,
-  curNavOption,
-  useRightFilter,
-  setUseRightFilter,
-}) {
+export default function Layout({ children }) {
+  const { curNavOption } = useContext(PostContext);
   const btnStyle = "d-flex align-items-center gap-1";
   const user = JSON.parse(localStorage.getItem("user"));
   const [isAuth, setIsAuth] = useState(false);
   const handleLogout = () => {
     setIsAuth(false);
     localStorage.removeItem("user");
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   useEffect(() => {
@@ -37,7 +31,11 @@ export default function Layout({
   return (
     <>
       <div className="fixed-top">
-        <Stack direction="horizontal" gap={3} className="border py-2 pe-3 bg-white">
+        <Stack
+          direction="horizontal"
+          gap={3}
+          className="border py-2 pe-3 bg-white"
+        >
           <Link to="/bookmarks" className={btnStyle + " ms-auto nav-link"}>
             <AiFillHeart className="text-danger" />
             <span className="fs-14 fw-500">Yêu thích</span>
@@ -111,10 +109,10 @@ export default function Layout({
             href="/"
             className={clsx(
               "px-3 nav-link d-flex align-items-center",
-              curNavOption === 1 && "bg-white"
+              curNavOption === "home" && "bg-white"
             )}
           >
-            <span className={clsx(curNavOption === 1 && "text-main")}>
+            <span className={clsx(curNavOption === "home" && "text-main")}>
               Trang chủ
             </span>
           </a>
@@ -139,13 +137,7 @@ export default function Layout({
         <div className="fw-400">
           Hiệu quả với 100.000+ tin đăng và 2.500.000 lượt xem mỗi tháng
         </div>
-        <SearchForm
-          setSortType={setSortType}
-          setCurPage={setCurPage}
-          setFilterCondition={setFilterCondition}
-          useRightFilter={useRightFilter}
-          setUseRightFilter={setUseRightFilter}
-        />
+        <SearchForm />
       </div>
       {children}
     </>

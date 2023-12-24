@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import userApi from "../../apis/userApi";
 import { LuDot } from "react-icons/lu";
 import { IBadroom, IBedroom } from "../../common/icons";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import Stack from "react-bootstrap/Stack";
@@ -103,7 +103,7 @@ export default function SavedListPost() {
                 <img src={images[3].url} alt={images[3].url} width="34%" />
               </div>
               <div
-                className="fw-bold mt-2 cursor-pointer fs-18 fw-700"
+                className="fw-bold mt-2 cursor-pointer fs-18 fw-700 text-hover-main"
                 onClick={() => {
                   navigate("/post/" + item.id);
                 }}

@@ -2,18 +2,22 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../views/layout";
 import Home from "../views/home";
 import PostDetail from "../views/post-detail";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import postApi from "../apis/postApi";
 import Login from "../views/auth/Login";
 import Bookmark from "../views/bookmark";
+
+export const PostContext = createContext();
 
 const AppRoutes = () => {
   const [listPost, setListPost] = useState([]);
   const [sortType, setSortType] = useState(0);
   const [curPage, setCurPage] = useState(1);
   const [filterCondition, setFilterCondition] = useState({});
-  const [curNavOption, setCurNavOption] = useState(0);
+  const [curNavOption, setCurNavOption] = useState('home');
   const [useRightFilter, setUseRightFilter] = useState(false);
+  const [priceRangeRF, setPriceRangeRF] = useState();
+  const [areaRangeRF, setAreaRangeRF] = useState();
 
   const getListPost = async () => {
     const res = await postApi.getList({
@@ -23,6 +27,7 @@ const AppRoutes = () => {
     // console.log("listpost::", res);
     setListPost(res);
   };
+
   useEffect(() => {
     getListPost();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -34,39 +39,41 @@ const AppRoutes = () => {
         <Route
           path="*"
           element={
-            <Layout
-              setSortType={setSortType}
-              setCurPage={setCurPage}
-              setFilterCondition={setFilterCondition}
-              curNavOption={curNavOption}
-              useRightFilter={useRightFilter}
-              setUseRightFilter={setUseRightFilter}
+            <PostContext.Provider
+              value={{
+                listPost,
+                setListPost,
+                sortType,
+                setSortType,
+                filterCondition,
+                setFilterCondition,
+                getListPost,
+                curPage,
+                setCurPage,
+                curNavOption,
+                setCurNavOption,
+                useRightFilter,
+                setUseRightFilter,
+                priceRangeRF,
+                setPriceRangeRF,
+                areaRangeRF,
+                setAreaRangeRF,
+              }}
             >
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <Home
-                      listPost={listPost}
-                      setListPost={setListPost}
-                      sortType={sortType}
-                      setSortType={setSortType}
-                      curPage={curPage}
-                      setCurPage={setCurPage}
-                      setCurNavOption={setCurNavOption}
-                      useRightFilter={useRightFilter}
-                      setUseRightFilter={setUseRightFilter}
-                      setFilterCondition={setFilterCondition}
-                    />
-                  }
-                />
-                <Route
-                  path="/post/:postId"
-                  element={<PostDetail setCurNavOption={setCurNavOption} />}
-                />
-                <Route path="/bookmarks" element={<Bookmark setCurNavOption={setCurNavOption} />} />
-              </Routes>
-            </Layout>
+              <Layout>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route
+                    path="/post/:postId"
+                    element={<PostDetail />}
+                  />
+                  <Route
+                    path="/bookmarks"
+                    element={<Bookmark />}
+                  />
+                </Routes>
+              </Layout>
+            </PostContext.Provider>
           }
         />
         <Route path="/login" element={<Login />} />
