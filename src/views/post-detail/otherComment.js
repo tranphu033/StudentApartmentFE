@@ -19,10 +19,15 @@ export default function OtherComment({ commentContent }) {
             if (response === "ok") setComment({ ...comment, like_number: comment.like_number + 1, liked_by_current_user: true })
         }
     }
-    // const handlerOnClickUnLike = () => {
-    //     setComment({ ...comment, like_details: [...comment.like_details.filter(item => item.user_id !== user_id)] })
-
-    // }
+    const handlerOnClickUnLike = async () => {
+        if (localStorage.getItem('user')) {
+            const response = await postApi.likeReview({
+                user_id: user.id,
+                review_id: comment.id
+            })
+            if (response === "ok") setComment({ ...comment, like_number: comment.like_number - 1, liked_by_current_user: false })
+        }
+    }
 
     return (
         <div className="other-comment">
@@ -40,7 +45,7 @@ export default function OtherComment({ commentContent }) {
             <div className="react-container">
                 {comment.liked_by_current_user ?
                     <AiFillLike
-                        className="like-icon"
+                        className="like-icon" onClick={handlerOnClickUnLike}
                     /> :
                     <AiOutlineLike className="like-icon" onClick={handlerOnClickLike} />
                 }

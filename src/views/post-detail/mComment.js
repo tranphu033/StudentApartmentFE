@@ -2,9 +2,8 @@ import "./mComment.css";
 import avatarImg from '../../assets/avatar.png'
 import TextareaAutosize from 'react-textarea-autosize';
 import OtherComment from "./otherComment";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import postApi from "../../apis/postApi";
-import dayjs from "dayjs";
 
 export default function Mcomment({ listCommentData, postId }) {
     const [listComment, setListComment] = useState([...listCommentData].reverse());
@@ -42,7 +41,7 @@ export default function Mcomment({ listCommentData, postId }) {
                 <div className="input-comment">
 
                     <div className="userInfo">
-                        <img src={avatarImg} />
+                        <img src={avatarImg} alt="anh" />
                         <span className="txt-username">{user.username}</span>
                     </div>
 
