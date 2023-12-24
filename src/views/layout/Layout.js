@@ -18,13 +18,13 @@ export default function Layout({
   useRightFilter,
   setUseRightFilter,
 }) {
-  const btnStyle = "d-flex align-items-center gap-2";
+  const btnStyle = "d-flex align-items-center gap-1";
   const user = JSON.parse(localStorage.getItem("user"));
   const [isAuth, setIsAuth] = useState(false);
   const handleLogout = () => {
     setIsAuth(false);
     localStorage.removeItem("user");
-    window.location.reload();
+    window.location.href = '/';
   };
 
   useEffect(() => {
@@ -37,11 +37,11 @@ export default function Layout({
   return (
     <>
       <div className="fixed-top">
-        <Stack direction="horizontal" className="border py-2 pe-3 bg-white">
-          <Button variant="" className={btnStyle + " ms-auto"}>
+        <Stack direction="horizontal" gap={3} className="border py-2 pe-3 bg-white">
+          <Link to="/bookmarks" className={btnStyle + " ms-auto nav-link"}>
             <AiFillHeart className="text-danger" />
-            <span className="fs-14 fw-500"> Yêu thích</span>
-          </Button>
+            <span className="fs-14 fw-500">Yêu thích</span>
+          </Link>
           {!isAuth ? (
             <>
               <Link to="login" className={btnStyle + " nav-link"}>
@@ -82,7 +82,7 @@ export default function Layout({
               </Button>
             </>
           ) : (
-            <Dropdown className="me-2">
+            <Dropdown className="">
               <Dropdown.Toggle variant="">
                 <span className="fs-14 fw-600">{user.name}</span>
               </Dropdown.Toggle>

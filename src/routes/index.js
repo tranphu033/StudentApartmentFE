@@ -5,6 +5,7 @@ import PostDetail from "../views/post-detail";
 import { useEffect, useState } from "react";
 import postApi from "../apis/postApi";
 import Login from "../views/auth/Login";
+import Bookmark from "../views/bookmark";
 
 const AppRoutes = () => {
   const [listPost, setListPost] = useState([]);
@@ -63,6 +64,7 @@ const AppRoutes = () => {
                   path="/post/:postId"
                   element={<PostDetail setCurNavOption={setCurNavOption} />}
                 />
+                <Route path="/bookmarks" element={<Bookmark setCurNavOption={setCurNavOption} />} />
               </Routes>
             </Layout>
           }
