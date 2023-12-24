@@ -41,7 +41,7 @@ export default function Mcomment({ listCommentData, postId }) {
                 <div className="input-comment">
 
                     <div className="userInfo">
-                        <img src={avatarImg} alt="" />
+                        <img src={avatarImg} alt="anh" />
                         <span className="txt-username">{user.username}</span>
                     </div>
 
