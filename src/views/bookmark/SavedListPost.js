@@ -131,7 +131,7 @@ export default function SavedListPost() {
               <div className="pt-1 d-flex align-items-center border-0 border-top mt-1">
                 <img src={avatarImg} alt="" width="46x" />
                 <div>
-                  <div className="fs-14 fw-600">Kim Huệ</div>
+                  <div className="fs-14 fw-600">{item.user?.name}</div>
                   <div className="text-sm fw-400">
                     {dayjs(item.created_at).format("HH:ss")}
                     {" - "}
@@ -139,7 +139,7 @@ export default function SavedListPost() {
                   </div>
                 </div>
                 <div className="ms-auto bg-main text-white fs-14 fw-600 p-1 rounded-2">
-                  0392170xxx
+                {item.user?.phone}
                 </div>
                 <AiFillHeart
                   className="text-danger mx-3 cursor-pointer"
