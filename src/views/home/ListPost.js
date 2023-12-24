@@ -48,7 +48,7 @@ export default function ListPost() {
     document.body.scrollTop = offset; // For Safari
     document.documentElement.scrollTop = offset; // For Chrome, Firefox, IE and Opera
   };
-  const handleSavePost = async (post_id) => {
+  const handleSave = async (post_id) => {
     await userApi.addBm(user_id, post_id);
     alert("Lưu thành công!");
     let temp = [...listPost];
@@ -204,7 +204,7 @@ export default function ListPost() {
                 {!item.isSaved ? (
                   <AiOutlineHeart
                     className="text-danger ms-4 cursor-pointer"
-                    onClick={() => handleSavePost(item.id)}
+                    onClick={() => handleSave(item.id)}
                   />
                 ) : (
                   <AiFillHeart

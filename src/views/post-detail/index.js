@@ -9,7 +9,7 @@ import {
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { LuDot } from "react-icons/lu";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { IBadroom, IBedroom } from "../../common/icons";
 import "./index.css";
 import "react-slideshow-image/dist/styles.css";
@@ -27,6 +27,7 @@ import dayjs from "dayjs";
 import Mcomment from "./mComment";
 import MockReview from "../../mock/listComment";
 import { PostContext } from "../../routes";
+import userApi from "../../apis/userApi";
 
 const sliderButtonStyle = {
   display: "flex",
@@ -61,11 +62,13 @@ export default function PostDetail() {
   const [postDetail, setPostDetail] = useState([]);
   const [hotNews, setHotNews] = useState([]);
   const [similarNews, setSimilarNews] = useState([]);
-  const getPostDetail = useCallback(async (id) => {
-    const userId = JSON.parse(localStorage.getItem("user"))?.id;
+  const userId = JSON.parse(localStorage.getItem("user"))?.id;
+
+  const getPostDetail = useCallback(async (id) => {    
     const res = await postApi.getPostDetail(id, userId);
     setPostDetail(res);
     getSimilarPosts(res.price, res.land_area, res.type);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const getSimilarPosts = async (price, area, type) => {
     const res2 = await postApi.getSimilarPosts(price, area, type);
@@ -75,6 +78,16 @@ export default function PostDetail() {
     const res = await postApi.getHotNews();
     setHotNews(res);
   }, []);
+  const handleSave = async () => {
+    await userApi.addBm(userId, postDetail.id);
+    alert('Lưu thành công!')
+    setPostDetail({...postDetail, isSaved: true});
+  }
+  const handleRemoveSaved = async () => {
+    await userApi.deleteBm(userId, postDetail.id);
+    alert('Bỏ lưu thành công!')
+    setPostDetail({...postDetail, isSaved: false});
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -153,10 +166,19 @@ export default function PostDetail() {
                 {postDetail.bathroom_num} <IBadroom />
                 <LuDot className="mx-1" />
               </div>
-              <AiOutlineHeart
-                className="text-danger ms-4"
-                style={{ cursor: "pointer" }}
-              />
+              {!postDetail.isSaved ? (
+                <AiOutlineHeart
+                  className="text-danger ms-4"
+                  style={{ cursor: "pointer" }}
+                  onClick={handleSave}
+                />
+              ) : (
+                <AiFillHeart
+                  className="text-danger ms-4"
+                  style={{ cursor: "pointer" }}
+                  onClick={handleRemoveSaved}
+                />
+              )}
             </div>
             <div className="content-title" style={{ background: "none" }}>
               <img alt="img" src={addressIcon}></img>

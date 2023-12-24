@@ -10,6 +10,10 @@ export default function Bookmark() {
   const { setCurNavOption } = useContext(PostContext);
   useEffect(() => {
     setCurNavOption("bookmarks");
+    //scroll to top:
+    const offset = 0;
+    document.body.scrollTop = offset; // For Safari
+    document.documentElement.scrollTop = offset; // For Chrome, Firefox, IE and Opera
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

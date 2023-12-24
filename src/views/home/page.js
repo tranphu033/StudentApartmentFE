@@ -3,8 +3,15 @@ import Col from "react-bootstrap/Col";
 import "./pageStyle.css";
 import ListPost from "./ListPost";
 import RightFilter from "../../components/RightFilter";
+import { useEffect } from "react";
 
-export default function Home() {  
+export default function Home() {
+  useEffect(() => {
+    //scroll to top:
+    const offset = 0;
+    document.body.scrollTop = offset; // For Safari
+    document.documentElement.scrollTop = offset; // For Chrome, Firefox, IE and Opera
+  }, []);
 
   return (
     <>
