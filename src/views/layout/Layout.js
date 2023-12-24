@@ -3,22 +3,23 @@ import Button from "react-bootstrap/Button";
 import { IoMdAdd } from "react-icons/io";
 import { AiFillHeart } from "react-icons/ai";
 import SearchForm from "./SearchForm";
-// import { Link } from "react-router-dom";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { PostContext } from "../../routes";
 
 export default function Layout({ children }) {
   const { curNavOption } = useContext(PostContext);
-  const btnStyle = "d-flex align-items-center gap-1";
+  const btnStyle = "d-flex align-items-center gap-1 cursor-pointer";
   const user = JSON.parse(localStorage.getItem("user"));
   const [isAuth, setIsAuth] = useState(false);
+  const navigate = useNavigate();
   const handleLogout = () => {
     setIsAuth(false);
     localStorage.removeItem("user");
-    window.location.href = "/";
+    if (window.location.pathname === "/bookmarks") window.location.href = "/";
+    else window.location.reload();
   };
 
   useEffect(() => {
@@ -36,10 +37,16 @@ export default function Layout({ children }) {
           gap={3}
           className="border py-2 pe-3 bg-white"
         >
-          <Link to="/bookmarks" className={btnStyle + " ms-auto nav-link"}>
+          <div
+            className={btnStyle + " ms-auto nav-link"}
+            onClick={() => {
+              if (!isAuth) alert("Vui lòng đăng nhập!");
+              else navigate("/bookmarks");
+            }}
+          >
             <AiFillHeart className="text-danger" />
             <span className="fs-14 fw-500">Yêu thích</span>
-          </Link>
+          </div>
           {!isAuth ? (
             <>
               <Link to="login" className={btnStyle + " nav-link"}>

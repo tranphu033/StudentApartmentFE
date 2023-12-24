@@ -56,7 +56,7 @@ export default function SavedListPost() {
     setCurPageStartIndex((curPage - 1) * perPage);
   }, [curPage]);
   useEffect(() => {
-    getSavedListPost();
+    if (user_id) getSavedListPost();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
