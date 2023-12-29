@@ -27,6 +27,7 @@ import dayjs from "dayjs";
 import Mcomment from "./mComment";
 import { PostContext } from "../../routes";
 import userApi from "../../apis/userApi";
+import { toast } from "react-toastify";
 
 const sliderButtonStyle = {
     display: "flex",
@@ -78,12 +79,12 @@ export default function PostDetail() {
     }, []);
     const handleSave = async () => {
         await userApi.addBm(userId, postDetail.id);
-        alert('Lưu thành công!')
+        toast.success('Đã lưu vào mục Yêu thích!')
         setPostDetail({ ...postDetail, isSaved: true });
     }
     const handleRemoveSaved = async () => {
         await userApi.deleteBm(userId, postDetail.id);
-        alert('Bỏ lưu thành công!')
+        toast.success('Đã bỏ lưu khỏi mục Yêu thích!')
         setPostDetail({ ...postDetail, isSaved: false });
     }
 

@@ -9,6 +9,7 @@ import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
 import clsx from "clsx";
 import avatarImg from "../../assets/avatar.png";
+import { toast } from "react-toastify";
 
 export default function SavedListPost() {
   const [savedListPost, setSavedListPost] = useState([]);
@@ -44,7 +45,7 @@ export default function SavedListPost() {
   };
   const handleRemoveSaved = async (post_id) => {
     await userApi.deleteBm(user_id, post_id);
-    alert("Bỏ lưu thành công!");
+    toast.success("Đã bỏ lưu khỏi mục Yêu thích!");    
     await getSavedListPost();
     //scroll to top:
     const offset = 180;

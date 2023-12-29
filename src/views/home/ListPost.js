@@ -11,6 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import clsx from "clsx";
 import userApi from "../../apis/userApi";
 import { PostContext } from "../../routes";
+import { toast } from "react-toastify";
 
 export default function ListPost() {
   const {
@@ -50,7 +51,7 @@ export default function ListPost() {
   };
   const handleSave = async (post_id) => {
     await userApi.addBm(user_id, post_id);
-    alert("Lưu thành công!");
+    toast.success("Đã lưu vào mục Yêu thích!");
     let temp = [...listPost];
     for (let i = 0; i < temp.length; i++) {
       if (temp[i].id === post_id) {
@@ -61,7 +62,7 @@ export default function ListPost() {
   };
   const handleRemoveSaved = async (post_id) => {
     await userApi.deleteBm(user_id, post_id);
-    alert("Bỏ lưu thành công!");
+    toast.success("Đã bỏ lưu khỏi mục Yêu thích!");
     let temp = [...listPost];
     for (let i = 0; i < temp.length; i++) {
       if (temp[i].id === post_id) {
@@ -88,7 +89,8 @@ export default function ListPost() {
       <div className="text-main fs-14 fw-500">
         Hiện có {listPost.length} kết quả
         {useRightFilter && (
-          <div>
+          <div className="fst-italic d-inline fw-600">
+            &nbsp;
             {priceRangeRF && (
               <>
                 Giá cho thuê{" "}
@@ -211,7 +213,7 @@ export default function ListPost() {
                     className="text-danger ms-4 cursor-pointer"
                     onClick={() => handleRemoveSaved(item.id)}
                   />
-                )}
+                )}                
               </div>
               <div className="mt-2 fw-600">Địa chỉ: {item.address}</div>
               <div className="text-sm fw-500">

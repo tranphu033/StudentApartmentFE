@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { PostContext } from "../../routes";
+import { toast } from "react-toastify";
 
 export default function Layout({ children }) {
   const { curNavOption } = useContext(PostContext);
@@ -40,7 +41,7 @@ export default function Layout({ children }) {
           <div
             className={btnStyle + " ms-auto nav-link"}
             onClick={() => {
-              if (!isAuth) alert("Vui lòng đăng nhập!");
+              if (!isAuth) toast.warn("Vui lòng đăng nhập!");
               else navigate("/bookmarks");
             }}
           >
