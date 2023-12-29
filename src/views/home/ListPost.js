@@ -50,15 +50,18 @@ export default function ListPost() {
     document.documentElement.scrollTop = offset; // For Chrome, Firefox, IE and Opera
   };
   const handleSave = async (post_id) => {
-    await userApi.addBm(user_id, post_id);
-    toast.success("Đã lưu vào mục Yêu thích!");
-    let temp = [...listPost];
-    for (let i = 0; i < temp.length; i++) {
-      if (temp[i].id === post_id) {
-        temp[i].isSaved = true;
+    if (!user_id) toast.warn("Vui lòng đăng nhập!");
+    else {
+      await userApi.addBm(user_id, post_id);
+      toast.success("Đã lưu vào mục Yêu thích!");
+      let temp = [...listPost];
+      for (let i = 0; i < temp.length; i++) {
+        if (temp[i].id === post_id) {
+          temp[i].isSaved = true;
+        }
       }
+      setListPost(temp);
     }
-    setListPost(temp);
   };
   const handleRemoveSaved = async (post_id) => {
     await userApi.deleteBm(user_id, post_id);
@@ -213,7 +216,7 @@ export default function ListPost() {
                     className="text-danger ms-4 cursor-pointer"
                     onClick={() => handleRemoveSaved(item.id)}
                   />
-                )}                
+                )}
               </div>
               <div className="mt-2 fw-600">Địa chỉ: {item.address}</div>
               <div className="text-sm fw-500">
