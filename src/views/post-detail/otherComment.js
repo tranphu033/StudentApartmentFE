@@ -2,13 +2,12 @@ import "./mComment.css";
 import avatarImg from '../../assets/avatar.png'
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { useState } from "react";
-import dayjs from "dayjs";
 import postApi from "../../apis/postApi";
 
 export default function OtherComment({ commentContent }) {
     const [user] = useState(JSON.parse(localStorage.getItem('user')))
     const [comment, setComment] = useState(commentContent);
-    const user_id = 1
+    // const user_id = 1
 
     const handlerOnClickLike = async () => {
         if (localStorage.getItem('user')) {
@@ -32,7 +31,7 @@ export default function OtherComment({ commentContent }) {
     return (
         <div className="other-comment">
             <div className="userInfo">
-                <img src={avatarImg} />
+                <img src={avatarImg} alt="" />
                 <div>
                     <span className="txt-username">{comment.user.username}</span>
                     <span className="txt-time">{comment.posted_time}</span>

@@ -9,6 +9,7 @@ import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
 import clsx from "clsx";
 import avatarImg from "../../assets/avatar.png";
+import { toast } from "react-toastify";
 
 export default function SavedListPost() {
   const [savedListPost, setSavedListPost] = useState([]);
@@ -44,7 +45,7 @@ export default function SavedListPost() {
   };
   const handleRemoveSaved = async (post_id) => {
     await userApi.deleteBm(user_id, post_id);
-    alert("Bỏ lưu thành công!");
+    toast.success("Đã bỏ lưu khỏi mục Yêu thích!");    
     await getSavedListPost();
     //scroll to top:
     const offset = 180;
@@ -56,7 +57,7 @@ export default function SavedListPost() {
     setCurPageStartIndex((curPage - 1) * perPage);
   }, [curPage]);
   useEffect(() => {
-    getSavedListPost();
+    if (user_id) getSavedListPost();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -131,7 +132,7 @@ export default function SavedListPost() {
               <div className="pt-1 d-flex align-items-center border-0 border-top mt-1">
                 <img src={avatarImg} alt="" width="46x" />
                 <div>
-                  <div className="fs-14 fw-600">Kim Huệ</div>
+                  <div className="fs-14 fw-600">{item.user?.name}</div>
                   <div className="text-sm fw-400">
                     {dayjs(item.created_at).format("HH:ss")}
                     {" - "}
@@ -139,7 +140,7 @@ export default function SavedListPost() {
                   </div>
                 </div>
                 <div className="ms-auto bg-main text-white fs-14 fw-600 p-1 rounded-2">
-                  0392170xxx
+                {item.user?.phone}
                 </div>
                 <AiFillHeart
                   className="text-danger mx-3 cursor-pointer"

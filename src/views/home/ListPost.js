@@ -11,6 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import clsx from "clsx";
 import userApi from "../../apis/userApi";
 import { PostContext } from "../../routes";
+import { toast } from "react-toastify";
 
 export default function ListPost() {
   const {
@@ -49,19 +50,22 @@ export default function ListPost() {
     document.documentElement.scrollTop = offset; // For Chrome, Firefox, IE and Opera
   };
   const handleSave = async (post_id) => {
-    await userApi.addBm(user_id, post_id);
-    alert("Lưu thành công!");
-    let temp = [...listPost];
-    for (let i = 0; i < temp.length; i++) {
-      if (temp[i].id === post_id) {
-        temp[i].isSaved = true;
+    if (!user_id) toast.warn("Vui lòng đăng nhập!");
+    else {
+      await userApi.addBm(user_id, post_id);
+      toast.success("Đã lưu vào mục Yêu thích!");
+      let temp = [...listPost];
+      for (let i = 0; i < temp.length; i++) {
+        if (temp[i].id === post_id) {
+          temp[i].isSaved = true;
+        }
       }
+      setListPost(temp);
     }
-    setListPost(temp);
   };
   const handleRemoveSaved = async (post_id) => {
     await userApi.deleteBm(user_id, post_id);
-    alert("Bỏ lưu thành công!");
+    toast.success("Đã bỏ lưu khỏi mục Yêu thích!");
     let temp = [...listPost];
     for (let i = 0; i < temp.length; i++) {
       if (temp[i].id === post_id) {
@@ -88,7 +92,8 @@ export default function ListPost() {
       <div className="text-main fs-14 fw-500">
         Hiện có {listPost.length} kết quả
         {useRightFilter && (
-          <div>
+          <div className="fst-italic d-inline fw-600">
+            &nbsp;
             {priceRangeRF && (
               <>
                 Giá cho thuê{" "}
